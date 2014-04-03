@@ -5,3 +5,8 @@ body {
 a {
   color: #00b7ff;
 }
+* {
+ margin: 0px;
+ padding: 0px;
+
+}

@@ -1,5 +1,17 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  div
+    h1= title
+    p Alle Bewertungen auf einen Blick
+    div
+      form(action="", method="post")
+        input(type="text", name="name", placeholder="Username") 
+        input(type="text", name="pw", placeholder="Password")
+        input(type="submit", value="login")
+      p: a(href="hilfe") Hilfe beim Einloggen?
+  div
+    ul
+      li: a(href="hilfe") Hilfe
+      li: a(href="nbd") Nutzungsbedingungen
+      li: a(href="pass") Was ist PASS?

@@ -4,10 +4,13 @@
  */
 
 var express = require('express');
+var mongoose = require('mongoose');
+
 var routes = require('./routes');
 var hilfe = require('./routes/hilfe');
 var nbd = require('./routes/nbd');
 var pass = require('./routes/pass');
+
 var http = require('http');
 var path = require('path');
 

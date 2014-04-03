@@ -1,16 +1,18 @@
 extends layout
 
 block content
-  div
+  div(id="header")
     h1= title
     p Alle Bewertungen auf einen Blick
-    div
-      form(action="login", method="post")
-        input(type="text", name="name", placeholder="Username") 
-        input(type="text", name="pw", placeholder="Passwort")
-        input(type="submit", value="login")
-      p: a(href="hilfe") Hilfe beim Einloggen?
-  div
+  div(id="background"): div(id="content")
+    form(action="login", method="post")
+      input(type="text", name="name", placeholder="Username", class="textfield") 
+      br
+      input(type="text", name="pw", placeholder="Passwort", class="textfield")
+      br
+      input(type="submit", value="login", class="button")
+    p: a(href="hilfe") Hilfe beim Einloggen?
+  div(id="footer")
     ul
       li: a(href="hilfe") Hilfe
       li: a(href="nbd") Nutzungsbedingungen

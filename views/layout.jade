@@ -4,4 +4,13 @@ html
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
-    block content
+    div(id="header")
+      h1= title
+      p Alle Bewertungen auf einen Blick
+    div(id="background"): div(id="content"): div
+      block content
+    div(id="footer")
+      ul
+        li: a(href="hilfe") Hilfe
+        li: a(href="nbd") Nutzungsbedingungen
+        li: a(href="pass") Was ist PASS?

@@ -13,6 +13,9 @@ a {
   border: #00f 1px solid;
   border-radius: 2px;
 }
+.textfield:hover {
+  border-color: #add8e6;
+}
 .button {
   background-color: #00f;
   color: #fff;
@@ -39,7 +42,7 @@ a {
   margin-top: 2%;
   margin-left: auto;
   margin-right: auto;
-  width: 50%;
+  width: 75%;
 }
 #content form .textfield {
   margin-top: 7px;
@@ -49,11 +52,11 @@ a {
   margin-top: 7px;
   width: 100%;
 }
-#content div {
+.centertext {
   margin-top: 5px;
   margin-right: auto;
   margin-left: auto;
-  width: 50%;
+  width: 75%;
   color: #808080;
 }
 #footer {

@@ -4,6 +4,9 @@
 
 var express = require('express');
 var mongoose = require('mongoose');
+var connection = require('./connect');
+
+var db = mongoose.connect('mongodb://'+connection.details()); 
 
 var routes = require('./routes');
 var hilfe = require('./routes/hilfe');

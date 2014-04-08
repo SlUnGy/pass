@@ -3,7 +3,7 @@
  */
 
 exports.display = function(req, res){
-  res.render('hilfe', { title: 'PASS - Hilfe' });
+  res.render('login', { title: 'PASS' });
 };
 
 exports.post = function(req, res){

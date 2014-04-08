@@ -26,10 +26,24 @@ a
   margin-right: auto 
   background-color: lightgray
   border-radius: 5px
-  box-shadow: 2px 2px #888;
+  box-shadow: 2px 2px #888
+.original
   width: 28%
+  height: 150px
+.expand
+  transition-property: width height
+  transition-duration: 3s
+  width: 80%
+  height: 400px
 #content
   padding: 2%
+.inactive
+  opacity: 0
+.active
+  transition-property: opacity
+  transition-timing-function: ease-in
+  transition-duration: 3s
+  opacity: 1
 #content form
   margin-top: 2%
   margin-left: auto

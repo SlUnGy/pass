@@ -1,10 +1,12 @@
 extends layout
 
 block content
-  form(action="/login", method="post")
-    input(type="text", name="name", placeholder="Username", class="textfield") 
-    br
-    input(type="text", name="pw", placeholder="Passwort", class="textfield")
-    br
-    input(type="submit", value="Login", class="button")
-  div(class="centertext"): a(href="hilfe") Hilfe beim Einloggen?
+  div(id="background" class="original")
+    div(id="content")
+      form(action="/login", method="post")
+        input(type="text", name="name", placeholder="Username", class="textfield") 
+        br
+        input(type="text", name="pw", placeholder="Passwort", class="textfield")
+        br
+        input(type="submit", value="Login", class="button")
+      div(class="centertext"): a(href="hilfe") Hilfe beim Einloggen?

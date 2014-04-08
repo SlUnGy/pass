@@ -4,7 +4,6 @@
 
 var express = require('express');
 var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
 
 var routes = require('./routes');
 var hilfe = require('./routes/hilfe');
@@ -42,16 +41,25 @@ app.get('/pass', pass.display);
 app.post('/login',login.post);
 app.get('/login',login.display);
 
-var loginSchema = new Schema({
+var userSchema = new mongoose.Schema({
   name:  String,
-  pasword: String,
+  password: String,
 });
 
-var login = mongoose.model('login', loginSchema);
-	
-var user = new login({name:'', password:''});
+userSchema.methods.test = function(pw){
+  return (typeof pw == "string" && this.password == pw);
+}
 
-var user = new login({name:'', password:''});
+var User = mongoose.model('User', userSchema);
+
+User.find( function(err,users){
+  if(err){
+    return console.error(err);
+  }
+});
+
+var newUser = new User({name:"root", password:"root"});
+newUser.save();
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

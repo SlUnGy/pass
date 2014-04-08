@@ -4,9 +4,31 @@
 
 var express = require('express');
 var mongoose = require('mongoose');
-var connection = require('./connect');
+var server = require('./connect');
 
-var db = mongoose.connect('mongodb://'+connection.details()); 
+var db = mongoose.connect('mongodb://'+server.details(),
+  function(err) {
+    if (err) {
+      console.error(err);
+      throw err;
+    }
+  }
+); 
+
+mongoose.connection.on('error', console.error.bind(console, 'connection error:'));
+mongoose.connection.once('open', function(){
+  console.log('Connected');
+  mongoose.connection.db.collectionNames(function(error, names) {
+    if (error) {
+      throw error;
+    } else {
+      console.log(names);
+      names.map(function(cname) {
+        console.log(cname.name);
+      });
+    }
+  });
+});
 
 var routes = require('./routes');
 var hilfe = require('./routes/hilfe');
@@ -34,7 +56,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // development only
 if ('development' == app.get('env')) {
-  app.use(express.errorHandler());
+app.use(express.errorHandler());
 }
 
 app.get('/', routes.index);
@@ -50,7 +72,7 @@ var userSchema = new mongoose.Schema({
 });
 
 userSchema.methods.test = function(pw){
-  return (typeof pw == "string" && this.password == pw);
+return (typeof pw == "string" && this.password == pw);
 }
 
 var User = mongoose.model('User', userSchema);
@@ -62,7 +84,7 @@ User.find( function(err,users){
 });
 
 var newUser = new User({name:"root", password:"root"});
-newUser.save();
+newUser.save(function(err){if(err)console.error(err);});
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

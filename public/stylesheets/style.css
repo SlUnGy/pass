@@ -1,5 +1,6 @@
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  height: auto;
 }
 a {
   color: inherit;
@@ -27,6 +28,32 @@ a {
   border-right: #add8e6 1px solid;
   border-bottom: #add8e6 1px solid;
 }
+#menu {
+  left: -500px;
+  position: absolute;
+  background-color: #808080;
+  border-bottom-right-radius: 7px;
+  border-top-right-radius: 7px;
+  border: #000 1px solid;
+  width: 15%;
+}
+.active {
+  left: 1px !important;
+}
+#menu ul {
+  padding: 5px;
+}
+#menu li {
+  padding: 5px;
+}
+#menubutton {
+  border-radius: 15px;
+  opacity: 1;
+}
+#menubutton:hover {
+  opacity: 0.5;
+  background-color: #000;
+}
 #background {
   margin-left: auto;
   margin-right: auto;
@@ -41,8 +68,8 @@ a {
 .expand {
   transition-property: width height;
   transition-duration: 3s;
-  width: 80%;
-  height: 400px;
+  width: 90%;
+  height: 90%;
 }
 #content {
   padding: 2%;

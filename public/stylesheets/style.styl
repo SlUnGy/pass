@@ -1,5 +1,6 @@
 body
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif
+  height: auto
 a
   color: inherit 
   text-decoration: none
@@ -21,20 +22,50 @@ a
   border-right: lightblue 1px solid
   border-bottom: lightblue 1px solid
 
+#menu
+  left: -500px
+  position: absolute
+  background-color: grey
+  border-bottom-right-radius: 7px
+  border-top-right-radius: 7px
+  border: black 1px solid
+  width: 15%
+.active
+  left: 1px !important
+  
+#menu ul
+  padding: 5px
+  
+#menu li
+  padding: 5px
+  
+ 
+#menubutton
+  border-radius: 15px
+  opacity:1
+  
+#menubutton:hover
+  opacity: 0.5
+  background-color: black
+
+
+
+
 #background
   margin-left: auto 
   margin-right: auto 
   background-color: lightgray
   border-radius: 5px
   box-shadow: 2px 2px #888
+
 .original
   width: 28%
   height: 150px
 .expand
   transition-property: width height
   transition-duration: 3s
-  width: 80%
-  height: 400px
+  width: 90%
+  height: 90%
 #content
   padding: 2%
 .inactive

@@ -3,19 +3,24 @@ extends layout
 block content
   div(id="background"  class="original")
     div(id="content" class="inactive")
-      p Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
-      sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-      sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
-      Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-      Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
-      sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-      sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
-      Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+      p Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
     
     script.
       function expand() {
         document.getElementById("background").className="expand";
         document.getElementById("content").className="active";
       }
+      function setActive(name){
+        console.log(name)
+        document.getElementById(name).className="active"
+      }
       window.onload = expand;
-      
+    
+  div(id = "menu")
+    ul
+        li: a(href="Noten") Noten
+        li: a(href="ka") Nutzungsbedingungen
+        li: a(href="Profil") Profil
+  
+  
+  img(src="/images/menubutton.svg", id = "menubutton", width=50, height=50, onclick="setActive('menu')")

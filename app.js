@@ -10,15 +10,6 @@ var db = mongoose.connect('mongodb://localhost/db');
 mongoose.connection.on('error', console.error.bind(console, 'connection error:'));
 mongoose.connection.once('open', function(){
   console.log('Connected');
-  mongoose.connection.db.collectionNames(function(error, names) {
-    if (error) {
-      throw error;
-    } else {
-      names.map(function(cname) {
-        console.log(cname.name);
-      });
-    }
-  });
 });
 
 
@@ -63,8 +54,10 @@ var userSchema = new mongoose.Schema({
   password: String,
 });
 
+userSchema.path('name').unique(true);
+
 userSchema.methods.test = function(pw){
-return (typeof pw == "string" && this.password == pw);
+  return (typeof pw == "string" && this.password == pw);
 }
 
 var User = mongoose.model('User', userSchema);

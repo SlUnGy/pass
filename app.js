@@ -5,30 +5,11 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var server = require('./connect');
-/*
-var db = mongoose.connect('mongodb://'+server.details(),
-  function(err) {
-    if (err) {
-      console.error(err);
-      throw err;
-    }
-  }
-); 
-*/
 var db = mongoose.connect('mongodb://localhost/db');
+
 mongoose.connection.on('error', console.error.bind(console, 'connection error:'));
 mongoose.connection.once('open', function(){
   console.log('Connected');
-  mongoose.connection.db.collectionNames(function(error, names) {
-    if (error) {
-      throw error;
-    } else {
-    
-      names.map(function(cname) {
-        console.log(cname.name);
-      });
-    }
-  });
 });
 
 
@@ -47,7 +28,7 @@ var app = express();
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-app.use(express.favicon());
+app.use(express.favicon('public/favicon.ico'));
 app.use(express.logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded());
@@ -73,8 +54,10 @@ var userSchema = new mongoose.Schema({
   password: String,
 });
 
+userSchema.path('name').unique(true);
+
 userSchema.methods.test = function(pw){
-return (typeof pw == "string" && this.password == pw);
+  return (typeof pw == "string" && this.password == pw);
 }
 
 var User = mongoose.model('User', userSchema);
@@ -86,7 +69,11 @@ User.find( function(err,users){
 });
 
 var newUser = new User({name:"root", password:"root"});
-newUser.save();
+newUser.save(function(err, newUser){
+  if(err){
+    return console.error(err);
+  }
+});
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

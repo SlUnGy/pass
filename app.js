@@ -5,17 +5,8 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var server = require('./connect');
-/*
-var db = mongoose.connect('mongodb://'+server.details(),
-  function(err) {
-    if (err) {
-      console.error(err);
-      throw err;
-    }
-  }
-); 
-*/
 var db = mongoose.connect('mongodb://localhost/db');
+
 mongoose.connection.on('error', console.error.bind(console, 'connection error:'));
 mongoose.connection.once('open', function(){
   console.log('Connected');
@@ -23,7 +14,6 @@ mongoose.connection.once('open', function(){
     if (error) {
       throw error;
     } else {
-    
       names.map(function(cname) {
         console.log(cname.name);
       });
@@ -86,7 +76,11 @@ User.find( function(err,users){
 });
 
 var newUser = new User({name:"root", password:"root"});
-newUser.save();
+newUser.save(function(err, newUser){
+  if(err){
+    return console.error(err);
+  }
+});
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

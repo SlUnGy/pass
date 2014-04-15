@@ -7,6 +7,7 @@ a
 *
   margin: 0px
   padding: 0px
+  cursor: url(original.gif), url(nyancat.cur), default
 .textfield
   border: blue 1px solid 
   border-radius: 2px
@@ -24,17 +25,22 @@ a
 
 #menu
   left: -500px
-  position: absolute
+  position: fixed
   background-color: grey
   border-bottom-right-radius: 7px
   border-top-right-radius: 7px
   border: black 1px solid
   width: 15%
 
-.active
+#menu.active
   left: 1px !important
-.inactive
+  transition-property: left
+  transition-duration: 0.5s
+  
+#menu.inactive
   left: -500px
+  transition-property: left
+  transition-duration: 0.5s
 #menu ul
   padding: 5px
   
@@ -42,13 +48,18 @@ a
   padding: 5px
   
  
-#menubutton
+#menubutton.active
   border-radius: 15px
   opacity:1
+  position: fixed
   
 #menubutton:hover
   opacity: 0.5
   background-color: black
+#menubutton.inactive
+  display: none
+  
+  
 
 
 
@@ -59,20 +70,23 @@ a
   background-color: lightgray
   border-radius: 5px
   box-shadow: 2px 2px #888
+ 
 
-.original
+#background.original
   width: 28%
   height: 150px
-.expand
+#background.expand
   transition-property: width height
   transition-duration: 3s
   width: 90%
   height: 90%
+  z-index:2
+
 #content
   padding: 2%
-#content .inactive
+#content.inactive
   opacity: 0
-#content .active
+#content.active
   transition-property: opacity
   transition-timing-function: ease-in
   transition-duration: 3s
@@ -82,10 +96,10 @@ a
   margin-left: auto
   margin-right: auto
   width: 55%
-#content form .textfield
+#content form.textfield
   margin-top: 7px
   width: 100%
-#content form .button
+#content form.button
   margin-top: 7px
   width: 100%
 .centertext
@@ -96,7 +110,7 @@ a
   color: gray
 
 #footer
-  position: fixed
+  margin-top: 10px
   border-top: lightgray 2px solid
   bottom: 0px
   width: 100%

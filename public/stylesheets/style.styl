@@ -30,9 +30,11 @@ a
   border-top-right-radius: 7px
   border: black 1px solid
   width: 15%
+
 .active
   left: 1px !important
-  
+.inactive
+  left: -500px
 #menu ul
   padding: 5px
   
@@ -68,9 +70,9 @@ a
   height: 90%
 #content
   padding: 2%
-.inactive
+#content .inactive
   opacity: 0
-.active
+#content .active
   transition-property: opacity
   transition-timing-function: ease-in
   transition-duration: 3s

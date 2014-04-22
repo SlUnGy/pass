@@ -6,8 +6,8 @@ block content
       document.getElementById("background").className="expand";
       document.getElementById("content").className="active";
     }
-    window.onload = expand;
-    
+    window.onload = function() { expand(); }
+    // snowflakes.start();
   div(id="background"  class="original")
       
     div(id="content" class="inactive")

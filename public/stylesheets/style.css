@@ -9,7 +9,6 @@ a {
 * {
   margin: 0px;
   padding: 0px;
-  cursor: url("original.gif"), url("nyancat.cur"), default;
 }
 .textfield {
   border: #00f 1px solid;

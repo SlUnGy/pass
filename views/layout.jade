@@ -8,25 +8,26 @@ html
     function setInactive(name){
       document.getElementById(name).className="inactive"
     }
-    
+
+
+  script(src='snowflakes.js')
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
-  
+
   body
     div(id="header")
       h1= title
       p Alle Bewertungen auf einen Blick
-    
+
     div(id = "menu" onclick="setInactive('menu'); setActive('menubutton');")
       ul
           li: a(href="Noten") Noten
-          li: a(href="ka") Nutzungsbedingungen
           li: a(href="Profil") Profil
-  
-  
+          li: a(href="Downloads") Downloads
+
     img(src="/images/menubutton.svg", id = "menubutton", class="active", width=50, height=50, onclick="setActive('menu'); setInactive('menubutton');")
-    
+
     block content
     div(id="footer")
       ul

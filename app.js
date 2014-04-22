@@ -40,7 +40,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // development only
 if ('development' == app.get('env')) {
-app.use(express.errorHandler());
+  app.use(express.errorHandler());
 }
 
 app.get('/', routes.index);
@@ -48,33 +48,33 @@ app.get('/hilfe', hilfe.display);
 app.get('/nbd', nbd.display);
 app.get('/pass', pass.display);
 app.get('/createCourse',createCourse.display);
-app.post('/login',login.post);
 app.get('/login',login.display);
 
 var userSchema = new mongoose.Schema({
   name:  String,
-  password: String,
+  password: String
 });
 
 userSchema.path('name').unique(true);
 
-userSchema.methods.test = function(pw){
-  return (typeof pw == "string" && this.password == pw);
-}
-
 var User = mongoose.model('User', userSchema);
 
-User.find( function(err,users){
-  if(err){
-    return console.error(err);
-  }
-});
-
 var newUser = new User({name:"root", password:"root"});
-newUser.save(function(err, newUser){
-  if(err){
-    return console.error(err);
-  }
+
+newUser.save();
+
+app.post('/login', function(req, res){
+  User.findOne({name: req.body.name}, function(err, foundUser){
+    if(err){
+      return console.error(err);
+    }
+    if(foundUser != null && foundUser.password === req.body.pw){
+      res.render('login_success', { title: 'PASS' });
+    }
+    else {
+      res.render('index', { title: 'PASS' });
+    }
+  });
 });
 
 http.createServer(app).listen(app.get('port'), function(){

@@ -3,10 +3,10 @@ extends layout
 block content
   div(id="background" class="original")
     div(id="content")
-      form(action="/login", method="post")
+      form(action="/login", method="post", id="login")
         input(type="text", name="name", placeholder="Username", class="textfield") 
         br
-        input(type="text", name="pw", placeholder="Passwort", class="textfield")
+        input(type="password", name="pw", placeholder="Passwort", class="textfield")
         br
         input(type="submit", value="Login", class="button")
       div(class="centertext"): a(href="hilfe") Hilfe beim Einloggen?

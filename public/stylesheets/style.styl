@@ -9,15 +9,18 @@ a
   padding: 0px
 
 .textfield
-  border: blue 1px solid 
-  border-radius: 2px
+  //border: blue 1px solid 
+  //border-radius: 2px
+  
 .textfield:hover
   border-color: lightblue
+  
 .button
   background-color: blue
   color: white
-  border: blue 1px solid
+  border: grey 1px solid
   border-radius: 2px
+  
 .button:hover
   background-color: lightblue
   border-right: lightblue 1px solid
@@ -70,11 +73,11 @@ a
   background-color: lightgray
   border-radius: 5px
   box-shadow: 2px 2px #888
- 
 
 #background.original
   width: 28%
   height: 150px
+
 #background.expand
   transition-property: width height
   transition-duration: 3s
@@ -91,29 +94,35 @@ a
   transition-timing-function: ease-in
   transition-duration: 3s
   opacity: 1
-#content form
+#content form#login
   margin-top: 2%
   margin-left: auto
   margin-right: auto
   width: 55%
-#content form.textfield
+  padding: 5px
+  
+#content form#login .textfield
   margin-top: 7px
   width: 100%
-#content form.button
+  
+#content form#login .button
   margin-top: 7px
   width: 100%
+  
 .centertext
   margin-top: 5px
   margin-right: auto
   margin-left: auto
   width: 55%
   color: gray
-
+  
+  
 #footer
   margin-top: 10px
   border-top: lightgray 2px solid
   bottom: 0px
   width: 100%
+
 #footer ul 
   display: inline
 #footer ul li

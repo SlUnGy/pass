@@ -6,6 +6,7 @@ var express = require('express');
 var mongoose = require('mongoose');
 var server = require('./connect');
 var db = mongoose.connect('mongodb://' + server.details());
+var schemes = require('./DBschemes');
 
 mongoose.connection.on('error', console.error.bind(console, 'connection error:'));
 mongoose.connection.once('open', function(){
@@ -56,23 +57,12 @@ app.get('/login',login.display);
 app.get('/main', mainPage.display);
 
 //app.get('/admin', admin.display);
-
-
-var userSchema = new mongoose.Schema({
-  name:  String,
-  password: String
-});
-
-userSchema.path('name').unique(true);
-
-var User = mongoose.model('User', userSchema);
-
-var newUser = new User({name:"root", password:"root"});
+var newUser = new schemes.User({name:"root", password:"root"});
 
 newUser.save();
 
 app.post('/login', function(req, res){
-  User.findOne({name: req.body.name}, function(err, foundUser){
+  schemes.User.findOne({name: req.body.name}, function(err, foundUser){
     if(err){
       return console.error(err);
     }

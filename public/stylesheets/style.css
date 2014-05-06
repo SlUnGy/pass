@@ -10,6 +10,10 @@ a {
   margin: 0px;
   padding: 0px;
 }
+.textfield {
+  border: #00f 1px solid;
+  border-radius: 2px;
+}
 .textfield:hover {
   border-color: #add8e6;
 }
@@ -90,6 +94,22 @@ a {
   transition-timing-function: ease-in;
   transition-duration: 3s;
   opacity: 1;
+}
+#heading {
+  margin: 5px;
+  font-size: 20px;
+}
+#createForm {
+  float: center;
+  width: 500px;
+}
+#createForm .textfield {
+  padding: 5px;
+  margin: 5px;
+}
+#createForm .button {
+  padding: 5px;
+  margin: 5px;
 }
 #content form#login {
   margin-top: 2%;

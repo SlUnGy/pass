@@ -9,9 +9,10 @@ block content
     window.onload = function() { expand(); }
   
   div(id="background" class="original")
-    
+    p(id="heading") create a new course
     div(id="content" class="inactive")
-      form(action="/notworking", method="post")
+      
+      form(action="/notworking", method="post" id="createForm")
         input(type="text", name="coursename", placeholder="Name", class="textfield") 
         br
         input(type="text", name="subject", placeholder="subject", class="textfield")

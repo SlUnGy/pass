@@ -10,6 +10,10 @@ a {
   margin: 0px;
   padding: 0px;
 }
+.textfield {
+  border: #00f 1px solid;
+  border-radius: 2px;
+}
 .textfield:hover {
   border-color: #add8e6;
 }
@@ -67,6 +71,7 @@ a {
   background-color: #d3d3d3;
   border-radius: 5px;
   box-shadow: 2px 2px #888;
+  margin-bottom: 2em;
 }
 #background.original {
   width: 28%;
@@ -91,6 +96,22 @@ a {
   transition-duration: 3s;
   opacity: 1;
 }
+#heading {
+  margin: 5px;
+  font-size: 20px;
+}
+#createForm {
+  float: center;
+  width: 500px;
+}
+#createForm .textfield {
+  padding: 5px;
+  margin: 5px;
+}
+#createForm .button {
+  padding: 5px;
+  margin: 5px;
+}
 #content form#login {
   margin-top: 2%;
   margin-left: auto;
@@ -114,10 +135,11 @@ a {
   color: #808080;
 }
 #footer {
-  margin-top: 10px;
+  position: fixed;
   border-top: #d3d3d3 2px solid;
   bottom: 0px;
   width: 100%;
+  background: #fff;
 }
 #footer ul {
   display: inline;

@@ -1,0 +1,21 @@
+extends layout
+
+block content
+	script.
+		function expand(){
+			document.getElementById("background").classname="expand";
+			document.getElementById("content").classname="active";
+		}
+		window.onload = function() {expand(); }
+	script.
+		function onclick(){
+			document.getElementById("createButton");
+			document.getElementById("manageButton");
+		}
+
+	div(id="background" class="original")
+		
+		div(id="content" class="active")
+			div(id="buttons")
+			button(type='button' name='createButton') Create User
+			button(type='button' name='manageButton') Manage User

@@ -1,0 +1,18 @@
+extends layout
+
+block content
+  script.
+    function expand() {
+      document.getElementById("background").className="expand";
+      document.getElementById("content").className="active";
+    }
+    window.onload = function() { expand(); }
+  
+  div(id="background" class="original")
+    div(id="content" class="inactive")
+      <a id="indexButton" class="green" href="./createCourse">Create course</a>
+      <a id="indexButton" class="blue" href="./createAssessment">Create assessment</a>
+      <a id="indexButton" class="red" href="./gradeAssessment">Grade assessment</a>
+      <a id="indexButton" class="purple" href="./scoreStudent">Score student</a>
+      
+        

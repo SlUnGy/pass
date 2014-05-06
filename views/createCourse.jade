@@ -8,10 +8,8 @@ block content
     }
     window.onload = function() { expand(); }
   
-  div(id="background" class="original")
-    p(id="heading") create a new course
-    div(id="content" class="inactive")
-      
-      form(action="/notworking", method="post" id="createForm")
-        input(type="text", name="coursename", placeholder="Name", class="textfield")       
-        input(type="submit", value="Create", class="button")
+  h3(id="heading") create a new course
+    
+  form(action="/notworking", method="post" id="createForm")
+    input(type="text", name="coursename", placeholder="Name", class="textfield")       
+    input(type="submit", value="Create", class="button")

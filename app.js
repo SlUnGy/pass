@@ -22,6 +22,7 @@ var login = require('./routes/login');
 var createCourse = require('./routes/createCourse');
 var mainPage = require('./routes/mainPage');
 //var admin = require('./routes/admin');
+var preferences = require('./routes/preferences');
 
 var http = require('http');
 var path = require('path');
@@ -55,6 +56,7 @@ app.get('/pass', pass.display);
 app.get('/createCourse',createCourse.display);
 app.get('/login',login.display);
 app.get('/main', mainPage.display);
+app.get('/preferences',preferences.display);
 
 //app.get('/admin', admin.display);
 var newUser = new schemes.User({name:"root", password:"root"});

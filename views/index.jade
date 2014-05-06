@@ -1,6 +1,9 @@
 extends layout
 
 block content
+  script.
+    window.onload = function() { setInactive("menubutton"); }
+    
   div(id="background" class="original")
     div(id="content")
       form(action="/login", method="post", id="login")

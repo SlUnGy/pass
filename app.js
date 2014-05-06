@@ -19,6 +19,7 @@ var nbd = require('./routes/nbd');
 var pass = require('./routes/pass');
 var login = require('./routes/login');
 var createCourse = require('./routes/createCourse');
+var admin = require('./routes/admin');
 
 var http = require('http');
 var path = require('path');
@@ -49,6 +50,7 @@ app.get('/nbd', nbd.display);
 app.get('/pass', pass.display);
 app.get('/createCourse',createCourse.display);
 app.get('/login',login.display);
+app.get('/admin', admin.display);
 
 var userSchema = new mongoose.Schema({
   name:  String,

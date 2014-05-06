@@ -35,6 +35,8 @@ app.use(express.logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.methodOverride());
+app.use(express.cookieParser());
+app.use(express.session({secret: 'yourmamaissofat'}));
 app.use(app.router);
 app.use(require('stylus').middleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -71,6 +73,7 @@ app.post('/login', function(req, res){
       return console.error(err);
     }
     if(foundUser != null && foundUser.password === req.body.pw){
+      req.session.user = foundUser;
       res.render('login_success', { title: 'PASS' });
     }
     else {

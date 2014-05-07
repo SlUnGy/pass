@@ -3,16 +3,8 @@
  */
 
 var express = require('express');
-var mongoose = require('mongoose');
-var server = require('./connect');
-var db = mongoose.connect('mongodb://' + server.details());
 var schemes = require('./DBschemes');
-
-mongoose.connection.on('error', console.error.bind(console, 'connection error:'));
-mongoose.connection.once('open', function(){
-  console.log('Connected');
-});
-
+var db = require('./db');
 
 var routes = require('./routes');
 var hilfe = require('./routes/hilfe');
@@ -65,7 +57,7 @@ app.post('/login', function(req, res){
       return console.error(err);
     }
     if(foundUser != null && foundUser.password === req.body.pw){
-      res.render('login_success', { title: 'PASS' });
+      res.render('main', { title: 'PASS' });
     }
     else {
       res.render('index', { title: 'PASS' });

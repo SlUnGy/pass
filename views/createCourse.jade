@@ -1,17 +1,27 @@
 extends layout
 
 block content
-  script.
-    function expand() {
-      document.getElementById("background").className="expand";
-      document.getElementById("content").className="active";
-    }
-    window.onload = function() { expand(); }
-  
-  div(id="background" class="original")
-    p(id="heading") create a new course
-    div(id="content" class="inactive")
-      
-      form(action="/notworking", method="post" id="createForm")
-        input(type="text", name="coursename", placeholder="Name", class="textfield")       
-        input(type="submit", value="Create", class="button")
+	script.
+		function expand() {
+			document.getElementById("background").className="expand";
+			document.getElementById("content").className="active";
+		}
+		
+		function addStudent() {
+			var studentToCreate;
+			studentToCreate.text = document.getElementByName("student").value;
+			studentToCreate.value = document.getElementByName("student").value;
+			document.getElementById("students").options.add(studentToCreate);
+		}
+	
+		window.onload = function() { expand(); }
+
+	p(id="heading") Create a new course
+	form(action="/createCourseStudents", method="post" id="createForm")
+		input(type="text", name="coursename", placeholder="Kursname", class="textfield") 
+		br
+		input(type="text", name="student", placeholder="Student", class="textfield")
+		input(type="button", name="addStudent", value="Add", onclick="addStudent()")
+		br
+		input(type="listbox", name="students")
+

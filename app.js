@@ -14,6 +14,7 @@ var login = require('./routes/login');
 var createCourse = require('./routes/createCourse');
 var mainPage = require('./routes/mainPage');
 //var admin = require('./routes/admin');
+var preferences = require('./routes/preferences');
 
 var http = require('http');
 var path = require('path');
@@ -29,13 +30,15 @@ app.use(express.logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.methodOverride());
+app.use(express.cookieParser());
+app.use(express.session({secret: 'yourmamaissofat'}));
 app.use(app.router);
 app.use(require('stylus').middleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // development only
 if ('development' == app.get('env')) {
-  app.use(express.errorHandler());
+	app.use(express.errorHandler());
 }
 
 app.get('/', routes.index);
@@ -45,6 +48,7 @@ app.get('/pass', pass.display);
 app.get('/createCourse',createCourse.display);
 app.get('/login',login.display);
 app.get('/main', mainPage.display);
+app.get('/preferences',preferences.display);
 
 //app.get('/admin', admin.display);
 var newUser = new schemes.User({name:"root", password:"root"});
@@ -52,19 +56,20 @@ var newUser = new schemes.User({name:"root", password:"root"});
 newUser.save();
 
 app.post('/login', function(req, res){
-  schemes.User.findOne({name: req.body.name}, function(err, foundUser){
-    if(err){
-      return console.error(err);
-    }
-    if(foundUser != null && foundUser.password === req.body.pw){
-      res.render('main', { title: 'PASS' });
-    }
-    else {
-      res.render('index', { title: 'PASS' });
-    }
-  });
+	schemes.User.findOne({name: req.body.name}, function(err, foundUser){
+		if(err){
+			return console.error(err);
+		}
+		if(foundUser != null && foundUser.password === req.body.pw){
+			req.session.user = foundUser;
+			res.render('main', { title: 'PASS' });
+		}
+		else {
+			res.render('index', { title: 'PASS' });
+		}
+	});
 });
 
 http.createServer(app).listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
+	console.log('Express server listening on port ' + app.get('port'));
 });

@@ -11,6 +11,7 @@ var hilfe = require('./routes/hilfe');
 var nbd = require('./routes/nbd');
 var pass = require('./routes/pass');
 var login = require('./routes/login');
+var createCourseDo = require('./routes/createCourseDo');
 var createCourse = require('./routes/createCourse');
 var mainPage = require('./routes/mainPage');
 //var admin = require('./routes/admin');
@@ -68,6 +69,10 @@ app.post('/login', function(req, res){
 			res.render('index', { title: 'PASS' });
 		}
 	});
+});
+
+app.post('/createCourseDo', function(req, res){
+	createCourseDo.post(req, res);
 });
 
 http.createServer(app).listen(app.get('port'), function(){

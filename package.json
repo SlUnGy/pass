@@ -10,6 +10,7 @@
     "jade": "*",
     "stylus": "*",
     "mongodb": "*",
-    "mongoose": "*"
+    "mongoose": "*",
+    "node-async": "*"
   }
 }

@@ -1,25 +1,31 @@
 extends layout
 block content
 	script.
-		function expand() {
-			document.getElementById("background").className="expand";
-			document.getElementById("content").className="active";
-		}
+		var studentArray= new Array();
 		
-		function addStudent() {
-			var studentToCreate;
-			studentToCreate.text = document.getElementByName("student").value;
-			studentToCreate.value = document.getElementByName("student").value;
-			document.getElementById("students").options.add(studentToCreate);
+		function addStudentToList() {
+			studentToCreateName = document.getElementById("student").value
+			if(studentToCreateName != ""){
+				var studentToCreate = document.createElement("option");
+				studentToCreate.text = studentToCreateName;
+				studentToCreate.value = studentToCreateName;
+				document.getElementById("students").options.add(studentToCreate);
+				console.log(document.getElementById("students"));
+				document.getElementById("student").value = ""; //Clear the input field
+				studentArray.push(studentToCreateName);
+				document.getElementById("postStudents").value = JSON.stringify(studentArray); //Lets the studentsarray post, too
+				console.log(studentArray);
+			}
 		}
 	
-		window.onload = function() { expand(); }
 
 	p(id="heading") Create a new course
-	form(action="/createCourseStudents", method="post" id="createForm")
-		input(type="text", name="coursename", placeholder="Kursname", class="textfield") 
+	form(action="/createCourseDo", method="post" id="createForm")
+		input(type="text", name="courseName", placeholder="Kursname", class="textfield") 
+		input(type="text", name="student", id="student", placeholder="Student", class="textfield")
+		input(type="button", name="addStudent", value="Add", onclick="addStudentToList()", class="button")
 		br
-		input(type="text", name="student", placeholder="Student", class="textfield")
-		input(type="button", name="addStudent", value="Add", onclick="addStudent()")
+		select(type="listbox", name="students", id="students", multiple, class="listbox", style="min-width: 415px; min-height:200px; overflow:visible")
 		br
-		input(type="listbox", name="students")
+		<input type="hidden" name="postStudents" id="postStudents" value="">
+		input(type="submit", value="Create Course", class="button")

@@ -28,6 +28,11 @@ a {
   border-right: #add8e6 1px solid;
   border-bottom: #add8e6 1px solid;
 }
+.listbox {
+  border: #00f 1px solid;
+  border-radius: 2px;
+  margin-left: 5px;
+}
 #menu {
   left: -500px;
   position: fixed;
@@ -97,8 +102,8 @@ a {
   opacity: 1;
 }
 #heading {
-  padding-top: 40px;
-  margin-left: 40px;
+  margin-left: 5px;
+  margin-bottom: 5px;
   font: 24px bold "Lucida Grande", Helvetica;
 }
 #createForm {

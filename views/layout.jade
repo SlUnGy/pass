@@ -1,34 +1,41 @@
 doctype html
 html
-  script.
-    function setActive(name){
-      document.getElementById(name).className="active"
-    }
-    
-    function setInactive(name){
-      document.getElementById(name).className="inactive"
-    }
-    
-  head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
+	script.
+		function setActive(name){
+			document.getElementById(name).className="active"
+		}
+		
+		function setInactive(name){
+			document.getElementById(name).className="inactive"
+		}
+		
+		function expand() {
+			document.getElementById("background").className="expand";
+			document.getElementById("content").className="active";
+		}
+		
+		window.onload = function() { expand(); }
+	
+	head
+		title= title
+		link(rel='stylesheet', href='/stylesheets/style.css')
 
-  body
-    div(id="header")
-      h1= title
-      p Alle Bewertungen auf einen Blick
+	body
+		div(id="header")
+			h1= title
+			p Alle Bewertungen auf einen Blick
 
-    div(id = "menu" onclick="setInactive('menu'); setActive('menubutton');")
-      ul
-          li: a(href="Noten") Noten
-          li: a(href="Profil") Profil
-          li: a(href="Downloads") Downloads
+		div(id = "menu" onclick="setInactive('menu'); setActive('menubutton');")
+			ul
+				li: a(href="Noten") Noten
+				li: a(href="Profil") Profil
+				li: a(href="Downloads") Downloads
 
-    img(src="/images/menubutton.svg", id = "menubutton", class="active", width=50, height=50, onclick="setActive('menu'); setInactive('menubutton');")
+		img(src="/images/menubutton.svg", id = "menubutton", class="active", width=50, height=50, onclick="setActive('menu'); setInactive('menubutton');")
 
-    div(id="background" class="original"): div(id="content" class="active"): block content
-    div(id="footer")
-      ul
-        li: a(href="hilfe") Hilfe
-        li: a(href="nbd") Nutzungsbedingungen
-        li: a(href="pass") Was ist PASS?
+		div(id="background" class="original"): div(id="content" class="active"): block content
+		div(id="footer")
+			ul
+				li: a(href="hilfe") Hilfe
+				li: a(href="nbd") Nutzungsbedingungen
+				li: a(href="pass") Was ist PASS?

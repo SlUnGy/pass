@@ -1,0 +1,110 @@
+extends layout
+block content
+	script.
+		function addSmileyToQuestion(){	
+			if(event.target.parentNode.getElementsByClassName("textfield").length < 6){
+				var newSmiley = document.createElement("input"); //Create a smiley field
+				newSmiley.className = "textfield";
+				newSmiley.style.width = "16px";
+				newSmiley.maxLength = "2";
+				
+				event.target.parentNode.insertBefore(newSmiley, event.target.parentNode.getElementsByClassName("button")[0]);
+			}
+		}
+		
+		function removeSmileyFromQuestion(){
+			var allTextfields = event.target.parentNode.getElementsByClassName("textfield");
+			if(allTextfields.length > 3){
+				event.target.parentNode.removeChild(allTextfields[allTextfields.length-1]);
+			}
+		}
+	
+		function addQuestionToAssignment(){
+			var newQuestion = function(){}; //Create a placeholder object
+			console.log(event.target.parentNode);
+			parentDiv = event.target.parentNode.getElementsByClassName("questionHolder")[0];
+			childDiv = document.createElement("div");
+			
+			newQuestion.description = document.createElement("input");
+			newQuestion.description.placeholder = "Question Description";
+			newQuestion.description.className = "textfield";
+			
+			newQuestion.smileyHolder = document.createElement("span");
+			newQuestion.smileyHolder.smileys = 2; //We have to count, since we want max 5, min 2 SmileyFields
+			
+			newQuestion.smileyFields = {};
+			newQuestion.smileyFields["0"] = document.createElement("input"); //Create first smiley field
+			newQuestion.smileyFields["0"].className = "textfield";
+			newQuestion.smileyFields["0"].style.width="16px";
+			newQuestion.smileyFields["0"].maxLength = "2";
+			newQuestion.smileyFields["1"] = document.createElement("input"); //Create second smiley field. More can be added via '+'
+			newQuestion.smileyFields["1"].style.width="16px";
+			newQuestion.smileyFields["1"].maxLength = "2";
+			newQuestion.smileyFields["1"].className = "textfield";
+			newQuestion.smileyHolder.appendChild(newQuestion.smileyFields["0"]); //Apend the predefined Smileys
+			newQuestion.smileyHolder.appendChild(newQuestion.smileyFields["1"]);
+			
+			newQuestion.addQuestionButton = document.createElement("input");
+			newQuestion.addQuestionButton.type = "button";
+			newQuestion.addQuestionButton.className = "button";
+			newQuestion.addQuestionButton.value = "+";
+			newQuestion.addQuestionButton.onclick = function(){addSmileyToQuestion(this);};
+			
+			newQuestion.removeQuestionButton = document.createElement("input");
+			newQuestion.removeQuestionButton.type = "button";
+			newQuestion.removeQuestionButton.className = "button";
+			newQuestion.removeQuestionButton.value = "-";
+			newQuestion.removeQuestionButton.onclick = function(){removeSmileyFromQuestion(this);};
+			
+			placeholder =  document.createElement("label");
+			placeholder.style.minWidth = "40px";
+			placeholder.style.display = "inline-block";
+			
+			childDiv.appendChild(placeholder);
+			childDiv.appendChild(newQuestion.description);
+			childDiv.appendChild(newQuestion.smileyHolder);
+			childDiv.appendChild(newQuestion.addQuestionButton);
+			childDiv.appendChild(newQuestion.removeQuestionButton);
+			childDiv.appendChild(document.createElement("br"));
+			parentDiv.appendChild(childDiv);
+		}
+		
+		function addAssignmentToList(){
+			var newAssignment = function(){}; //Create a placeholder object
+			var assignmentHolder = document.createElement("div");
+						
+			newAssignment.description = document.createElement("input");
+			newAssignment.description.placeholder = "Assignment Description";
+			newAssignment.description.className = "textfield";
+			
+			newAssignment.addQuestionButton = document.createElement("input");
+			newAssignment.addQuestionButton.type = "button";
+			newAssignment.addQuestionButton.className = "button";
+			newAssignment.addQuestionButton.value = "Add Question";
+			newAssignment.addQuestionButton.onclick = function(){addQuestionToAssignment(this);};
+			
+			placeholder =  document.createElement("label");
+			placeholder.style.minWidth = "20px";
+			placeholder.style.display = "inline-block";
+			
+			assignmentHolder.appendChild(placeholder);			
+			assignmentHolder.appendChild(newAssignment.description);
+			assignmentHolder.appendChild(newAssignment.addQuestionButton);
+			assignmentHolder.appendChild(document.createElement("br"));
+			
+			newAssignment.questionHolder = document.createElement("div");
+			newAssignment.questionHolder.id = "questionHolder";
+			newAssignment.questionHolder.className = "questionHolder";
+			assignmentHolder.appendChild(newAssignment.questionHolder);
+			
+			document.getElementById("assignmentTable").appendChild(assignmentHolder);
+		}
+		
+	p(id="heading") Create a new assessment
+	form(action="/createAssessmentDo", method="post" id="createForm")
+		input(type="text", name="assessmentName", placeholder="Asessment Name", class="textfield") 
+		input(type="button", name="addAssignment", value="Add Assignment", onclick="addAssignmentToList()", class="button")
+		br
+		#assignmentTable
+		input(type="hidden", name="postStudents", id="postStudents", value="")
+		input(type="submit", value="Create Course", class="button")

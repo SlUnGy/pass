@@ -1,3 +1,4 @@
 *.swp
 connect.js
+public/stylesheets/style.css
 .~lock.*

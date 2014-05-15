@@ -112,8 +112,7 @@ a {
 }
 #createForm {
   float: center;
-<<<<<<< HEAD
-/*width: 500px*/
+  width: 800px;
 }
 #createForm .textfield {
   padding: 5px;

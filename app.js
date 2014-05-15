@@ -14,7 +14,9 @@ var login = require('./routes/login');
 var createCourseDo = require('./routes/createCourseDo');
 var createCourse = require('./routes/createCourse');
 var createAssessment = require('./routes/createAssessment');
+var getAssessment = require('./routes/getAssessment');
 var createAssessmentDo = require('./routes/createAssessmentDo');
+var gradeAssessment = require('./routes/gradeAssessment');
 var mainPage = require('./routes/mainPage');
 //var admin = require('./routes/admin');
 var preferences = require('./routes/preferences');
@@ -50,6 +52,7 @@ app.get('/nbd', nbd.display);
 app.get('/pass', pass.display);
 app.get('/createCourse',createCourse.display);
 app.get('/createAssessment', createAssessment.display);
+app.get('/gradeAssessment', gradeAssessment.display);
 app.get('/login',login.display);
 app.get('/main', mainPage.display);
 app.get('/preferences',preferences.display);
@@ -58,6 +61,11 @@ app.get('/preferences',preferences.display);
 var newUser = new schemes.User({name:"root", password:"root"});
 
 newUser.save();
+
+app.get('/getAssessment', function(req, res){
+	schemes.Assessment.findOne({name: req.param
+
+});
 
 app.post('/login', function(req, res){
 	schemes.User.findOne({name: req.body.name}, function(err, foundUser){

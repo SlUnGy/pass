@@ -4,7 +4,7 @@
 
 exports.display = function(req, res){
   if(req.session.user != null){
-    res.render('createAssessment', { title: 'Create Assessment - PASS' });
+    res.render('createAssessment', { title: 'PASS' });
   }
   else {
     res.render('index',{title: 'USER REQUIRED' });

@@ -14,6 +14,7 @@ var login = require('./routes/login');
 var createCourseDo = require('./routes/createCourseDo');
 var createCourse = require('./routes/createCourse');
 var createAssessment = require('./routes/createAssessment');
+var createAssessmentDo = require('./routes/createAssessmentDo');
 var mainPage = require('./routes/mainPage');
 //var admin = require('./routes/admin');
 var preferences = require('./routes/preferences');
@@ -75,6 +76,10 @@ app.post('/login', function(req, res){
 
 app.post('/createCourseDo', function(req, res){
 	createCourseDo.post(req, res);
+});
+
+app.post('/createAssessmentDo', function(req, res){
+	createAssessmentDo.post(req, res);
 });
 
 http.createServer(app).listen(app.get('port'), function(){

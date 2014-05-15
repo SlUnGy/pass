@@ -1,4 +1,7 @@
 extends layout
 
 block content
-	p yadda yadda choose a course
+	p(id="heading") Select a course
+	select(type="listbox" name="courses" id="courses" multiple="" style="min-width: 415px; min-height:200px; overflow:visible" class="listbox")
+		each name in courses
+			option= name 

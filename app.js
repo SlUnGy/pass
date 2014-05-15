@@ -16,6 +16,7 @@ var createCourse = require('./routes/createCourse');
 var createAssessment = require('./routes/createAssessment');
 var createAssessmentDo = require('./routes/createAssessmentDo');
 var gradeAssessment = require('./routes/gradeAssessment');
+var chooseCourse = require('./routes/chooseCourse');
 var mainPage = require('./routes/mainPage');
 //var admin = require('./routes/admin');
 var preferences = require('./routes/preferences');
@@ -55,6 +56,7 @@ app.get('/gradeAssessment', gradeAssessment.display);
 app.get('/login',login.display);
 app.get('/main', mainPage.display);
 app.get('/preferences',preferences.display);
+app.get('/chooseCourse', chooseCourse.display);
 
 //app.get('/admin', admin.display);
 var newUser = new schemes.User({name:"root", password:"root"});

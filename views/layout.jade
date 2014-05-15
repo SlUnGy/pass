@@ -23,19 +23,18 @@ html
 	body
 		div(id="header")
 			h1= title
-			p Alle Bewertungen auf einen Blick
+			p all grades at a glance
 
 		div(id = "menu" onclick="setInactive('menu'); setActive('menubutton');")
 			ul
-				li: a(href="Noten") Noten
-				li: a(href="Profil") Profil
-				li: a(href="Downloads") Downloads
+				li: a(href="main") Dashboard
+				li: a(href="/") Logout
 
 		img(src="/images/menubutton.svg", id = "menubutton", class="active", width=50, height=50, onclick="setActive('menu'); setInactive('menubutton');")
 		div(id="wrapper")
 			div(id="background" class="original"): div(id="content" class="active"): block content
 		div(id="footer")
 			ul
-				li: a(href="hilfe") Hilfe
-				li: a(href="nbd") Nutzungsbedingungen
-				li: a(href="pass") Was ist PASS?
+				li: a(href="hilfe") help
+				li: a(href="nbd") terms of service
+				li: a(href="pass") about

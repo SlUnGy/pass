@@ -64,7 +64,7 @@ var newUser = new schemes.User({name:"root", password:"root"});
 newUser.save();
 
 app.get('/getAssessment', function(req, res){
-	schemes.Assessment.findOne("AAAA", function(err, foundAssessment){
+	schemes.Assessment.findOne({name:"Banana"}, function(err, foundAssessment){
 		console.log(foundAssessment);
 		if(err){
 			return console.error(err);

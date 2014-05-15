@@ -1,19 +1,128 @@
 extends layout
 block content
 	script.
+		function recalculateColors(parentNode){
+				var textfields = parentNode.getElementsByClassName("textfield");
+				var color_jumps = 351/(textfields.length);
+				var red = 99;
+				var green = 255;
+				var blue = 0;
+				
+				//Modus: Fill up red first (yellow), than reduce green to 0
+				for(var i=0; i<textfields.length; i++){
+					textfields[i].style.backgroundColor = "#" + Math.round(red).toString(16) + Math.round(green).toString(16) + "00";
+					if(red+color_jumps > 255){
+						green = green - (color_jumps-(255-red));
+						red = 255;
+					}
+					else{
+						red = red+color_jumps;
+					}
+				}
+			}
+		
+		function fillAssessmentFromJSON(input){
+			var assessment = JSON.parse(input);
+			var assignments = JSON.parse(assessment.assessment);
+
+			console.log(assignments);
+			
+			var assessmentDiv = document.getElementById("assessmentDiv");
+			
+			var assessmentHeading = document.createElement("p");
+			assessmentHeading.innerHTML = "Assessment " + assessment.name + " of student Pimmelkopp";
+			assessmentHeading.style.fontSize = "24px";
+			assessmentDiv.appendChild(assessmentHeading);
+			assessmentDiv.appendChild(document.createElement("br"));
+												
+			for(var i = 0; i<assignments.length; i++){ //Iterate over the assignments
+				var currentAssignment = assignments[i];
+				
+				var newAssignment = function(){}; //Create a placeholder object
+				var assignmentHolder = document.createElement("div");
+
+				placeholder = document.createElement("label");
+				placeholder.style.minWidth = "20px";
+				placeholder.style.display = "inline-block";
+				
+				newAssignment.description = document.createElement("p");
+				newAssignment.description.innerHTML = currentAssignment.description;
+				newAssignment.description.style.minWidth = "50px";
+				newAssignment.description.style.fontSize = "19px";
+
+				assignmentHolder.appendChild(placeholder);			
+				assignmentHolder.appendChild(newAssignment.description);
+
+				if(currentAssignment.tolerance != ""){
+					newAssignment.tolerance = document.createElement("label");
+					newAssignemnt.tolerance.value = "Tolerance: " + currentAssignment.tolerance;
+					assignmentHolder.appendChild(newAssignment.tolerance);
+				}
+				
+				assignmentHolder.appendChild(document.createElement("br"));
+				
+				newAssignment.questionHolder = document.createElement("div");
+				newAssignment.questionHolder.id = "questionHolder";
+				newAssignment.questionHolder.className = "questionHolder";
+
+				for(var j = 0; j<currentAssignment.questions.length; j++){
+					currentQuestion = currentAssignment.questions[j];
+					questionDiv = document.createElement("div");
+		
+					newQuestion = function(){}
+					newQuestion.description = document.createElement("p");
+					newQuestion.description.innerHTML = currentQuestion.description;
+					newQuestion.description.style.minWidth = "150px";
+					newQuestion.description.style.fontSize = "16px";
+					newQuestion.description.style.display = "inline-block";
+
+					questionDiv.appendChild(newQuestion.description);
+
+					newQuestion.points = document.createElement("input");
+					newQuestion.points.value = currentQuestion.points;
+					newQuestion.points.style.width = "50px";
+					newQuestion.points.style.fontSize = "16px";
+					newQuestion.points.style.display = "inline-block";
+					newQuestion.points.className = "textfield";
+					newQuestion.points.readOnly = "readonly";
+
+					questionDiv.appendChild(newQuestion.points);
+										
+					newQuestion.smileyHolder = document.createElement("span");
+					newQuestion.smileyHolder.className = "smileyHolder";
+
+					for(var z = 0; z<currentQuestion.smileys; z++){
+						var newSmiley = document.createElement("input"); 
+						newSmiley.className = "textfield";
+						newSmiley.style.width = "16px";
+						newSmiley.maxLength = "2";
+						newQuestion.smileyHolder.appendChild(newSmiley);
+					}
+					recalculateColors(newQuestion.smileyHolder);
+					questionDiv.appendChild(newQuestion.smileyHolder);
+										
+					newAssignment.questionHolder.appendChild(questionDiv);
+				}
+				
+				assignmentHolder.appendChild(newAssignment.questionHolder);
+
+				console.log(assignmentHolder);
+
+				assessmentDiv.appendChild(assignmentHolder);
+			}
+		}
+	
 		var xmlhttp = new XMLHttpRequest();
 		xmlhttp.onreadystatechange=function(){
-			if (xmlhttp.readyState==4 && xmlhttp.status==200){
-				console.log(JSON.parse(xmlhttp.responseText)["assessment"]);
-				document.getElementById("assessmentDiv").innerHTML=JSON.parse(xmlhttp.responseText)["assessment"];
+			if(xmlhttp.readyState==4 && xmlhttp.status==200){
+				fillAssessmentFromJSON(xmlhttp.responseText)
 			}
 		}
 		//Request the assessment from the DB
 		xmlhttp.open("GET","getAssessment?a=" + "Banana",true);
-		xmlhttp.send()
+		xmlhttp.send();
 		
-	p(id="heading") Grade an assessment
-	form(action="/gradeAssessmentDo", method="post" id="gradeForm")
+	form(action="/gradeAssessmentDo", method="post" id="createForm")
 		#assessmentDiv
 		
 	

@@ -1,25 +1,18 @@
 extends layout
 block content
 	script.
-		function enableTolerance(){
-			var parentDiv = event.target.parentNode;
-			parentDiv.removeChild(parentDiv.getElementsByClassName("button")[0]);
-			var toleranceField = document.createElement("input");
-			toleranceField.className = "textfield";
-			toleranceField.style.width = "60px";
-			toleranceField.placeholder = "Tolerance";
-			toleranceField.maxLength = "8";
-			console.log(parentDiv.getElementsByClassName("endAnchor"));
-			parentDiv.insertBefore(toleranceField, parentDiv.getElementsByClassName("endAnchor")[0]);
+		function submitAssessment(){
+			event.target.parentNode.childNodes[4].value = event.target.parentNode;
+			event.target.parentNode.submit()
 		}
-		
-		function enableNormal(){
+	
+		function enableTolerance(){
 			var parentDiv = event.target.parentNode;
 			parentDiv.removeChild(parentDiv.getElementsByClassName("button")[3]);
 			var toleranceField = document.createElement("input");
 			toleranceField.className = "textfield";
 			toleranceField.style.width = "60px";
-			toleranceField.placeholder = "Normal";
+			toleranceField.placeholder = "Tolerance";
 			toleranceField.maxLength = "8";
 			console.log(parentDiv.getElementsByClassName("endAnchor"));
 			parentDiv.insertBefore(toleranceField, parentDiv.getElementsByClassName("endAnchor")[0]);
@@ -83,14 +76,7 @@ block content
 			newQuestion.description = document.createElement("input");
 			newQuestion.description.placeholder = "Question Description";
 			newQuestion.description.className = "textfield";
-			
-			newQuestion.enableTolerance = document.createElement("input");
-			newQuestion.enableTolerance.type = "button";
-			newQuestion.enableTolerance.className = "button";
-			newQuestion.enableTolerance.value = "Tolerance";
-			newQuestion.enableTolerance.style.width = "72px";	
-			newQuestion.enableTolerance.onclick = function(){enableTolerance(this);};
-			
+						
 			newQuestion.totalPoints = document.createElement("input");
 			newQuestion.totalPoints.placeholder = "Pts";
 			newQuestion.totalPoints.className = "textfield";
@@ -124,7 +110,6 @@ block content
 			childDiv.appendChild(newQuestion.description);
 			childDiv.appendChild(newQuestion.totalPoints);
 			childDiv.appendChild(newQuestion.smileyHolder);
-			childDiv.appendChild(newQuestion.enableTolerance);
 			childDiv.appendChild(newQuestion.endAnchor);
 			childDiv.appendChild(document.createElement("br"));
 			parentDiv.appendChild(childDiv);
@@ -160,12 +145,12 @@ block content
 			newAssignment.removeSmileyButton.value = "Remove Step";
 			newAssignment.removeSmileyButton.onclick = function(){removeSmileyFromAssignment(this);};
 			
-			newAssignment.addNormalButton = document.createElement("input");
-			newAssignment.addNormalButton.type = "button";
-			newAssignment.addNormalButton.className = "button";
-			newAssignment.addNormalButton.value = "Normal";
-			newAssignment.addNormalButton.style.width = "72px";
-			newAssignment.addNormalButton.onclick = function(){enableNormal(this);};
+			newAssignment.addToleranceButton = document.createElement("input");
+			newAssignment.addToleranceButton.type = "button";
+			newAssignment.addToleranceButton.className = "button";
+			newAssignment.addToleranceButton.value = "Tolerance";
+			newAssignment.addToleranceButton.style.width = "72px";
+			newAssignment.addToleranceButton.onclick = function(){enableTolerance(this);};
 			
 			newAssignment.endAnchor = document.createElement("label");
 			newAssignment.endAnchor.className = "endAnchor"; 
@@ -176,7 +161,7 @@ block content
 			assignmentHolder.appendChild(newAssignment.addQuestionButton);
 			assignmentHolder.appendChild(newAssignment.addSmileyButton);
 			assignmentHolder.appendChild(newAssignment.removeSmileyButton);
-			assignmentHolder.appendChild(newAssignment.addNormalButton);
+			assignmentHolder.appendChild(newAssignment.addToleranceButton);
 			assignmentHolder.appendChild(newAssignment.endAnchor);
 			assignmentHolder.appendChild(document.createElement("br"));
 			
@@ -195,5 +180,5 @@ block content
 		input(type="button", name="addAssignment", value="Add Assignment", onclick="addAssignmentToList()", class="button")
 		br
 		#assignmentTable
-		input(type="hidden", name="postStudents", id="postStudents", value="")
-		input(type="submit", value="Create Course", class="button")
+		input(type="hidden", name="postAssessment", id="postAssessment", value="")
+		input(type="button", value="Create Assessment", class="button", onclick="submitAssessment()")

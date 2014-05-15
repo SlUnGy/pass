@@ -30,4 +30,11 @@ var Course = mongoose.model('Course', courseSchema);
 
 module.exports.Course = Course;
 
-	
+var assessmentSchema = new mongoose.Schema({
+	name: String,
+	assessment: String
+});
+
+var Assessment = mongoose.model('Assessment', assessmentSchema);
+
+module.exports.Assessment = Assessment;

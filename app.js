@@ -64,6 +64,18 @@ newUser.save();
 app.get('/getAssessment', function(req, res){
 	console.log(req.param("a"));
 	
+	schemes.Assessment.findOne({name: req.param("a")}, function(err, foundAssessment){
+		if(err){
+			return console.error(err);
+		}
+		if(foundUser != null && foundUser.password === req.body.pw){
+			req.session.user = foundUser;
+			res.render('main', { title: 'PASS' });
+		}
+		else {
+			res.render('index', { title: 'PASS' });
+		}
+	}
 });
 
 app.post('/login', function(req, res){

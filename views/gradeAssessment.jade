@@ -1,0 +1,18 @@
+extends layout
+block content
+	script.
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.onreadystatechange=function(){
+			if (xmlhttp.readyState==4 && xmlhttp.status==200){
+				document.getElementById("assessmentDiv").innerHTML=xmlhttp.responseText;
+			}
+		}
+		//Request the assessment from the DB
+		xmlhttp.open("GET","getAssessment?a=" + "Banana",true);
+		xmlhttp.send()
+		
+	p(id="heading") Grade an assessment
+	form(action="/gradeAssessmentDo", method="post" id="gradeForm")
+		#assessmentDiv
+		
+	

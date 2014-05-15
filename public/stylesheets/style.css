@@ -23,6 +23,13 @@ a {
   border: #808080 1px solid;
   border-radius: 2px;
 }
+.button.disabled {
+  background-color: #a9a9a9;
+}
+.button.disabled:hover {
+  background-color: #d3d3d3;
+  border-color: #808080;
+}
 .button:hover {
   background-color: #add8e6;
   border-right: #add8e6 1px solid;

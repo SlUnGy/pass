@@ -1,7 +1,30 @@
 extends layout
 block content
 	script.
-	
+		function enableTolerance(){
+			var parentDiv = event.target.parentNode;
+			parentDiv.removeChild(parentDiv.getElementsByClassName("button")[0]);
+			var toleranceField = document.createElement("input");
+			toleranceField.className = "textfield";
+			toleranceField.style.width = "60px";
+			toleranceField.placeholder = "Tolerance";
+			toleranceField.maxLength = "8";
+			console.log(parentDiv.getElementsByClassName("endAnchor"));
+			parentDiv.insertBefore(toleranceField, parentDiv.getElementsByClassName("endAnchor")[0]);
+		}
+		
+		function enableNormal(){
+			var parentDiv = event.target.parentNode;
+			parentDiv.removeChild(parentDiv.getElementsByClassName("button")[3]);
+			var toleranceField = document.createElement("input");
+			toleranceField.className = "textfield";
+			toleranceField.style.width = "60px";
+			toleranceField.placeholder = "Normal";
+			toleranceField.maxLength = "8";
+			console.log(parentDiv.getElementsByClassName("endAnchor"));
+			parentDiv.insertBefore(toleranceField, parentDiv.getElementsByClassName("endAnchor")[0]);
+		}
+		
 		function recalculateColors(parentNode){
 			var textfields = parentNode.getElementsByClassName("textfield");
 			var color_jumps = 351/(textfields.length);
@@ -22,23 +45,32 @@ block content
 			}
 		}	
 	
-		function addSmileyToQuestion(){	
-			var smileyHolder = event.target.parentNode.getElementsByClassName("smileyHolder")[0];
-			if(smileyHolder.children.length < 5){
-				var newSmiley = document.createElement("input"); //Create a smiley field
-				newSmiley.className = "textfield";
-				newSmiley.style.width = "16px";
-				newSmiley.maxLength = "2";
-				smileyHolder.appendChild(newSmiley);
-				recalculateColors(smileyHolder);
+		function addSmileyToAssignment(){	
+			var allQuestions = event.target.parentNode.getElementsByClassName("questionHolder")[0].getElementsByClassName("singleQuestionHolder");
+			for(var i = 0; i<allQuestions.length; i++){
+				var smileyHolder = allQuestions[i].getElementsByClassName("smileyHolder")[0];
+				if(smileyHolder.children.length < 5){
+					var newSmiley = document.createElement("input"); //Create a smiley field
+					newSmiley.className = "textfield";
+					newSmiley.style.width = "16px";
+					newSmiley.maxLength = "2";
+					newSmiley.disabled = true;
+					smileyHolder.appendChild(newSmiley);
+					recalculateColors(smileyHolder);
+					event.target.parentNode.getElementsByClassName("questionHolder")[0].smileyCount = smileyHolder.children.length; //Remember the number of smileys every quesiton has
+				}
 			}
 		}
 		
-		function removeSmileyFromQuestion(){
-			var smileyHolder = event.target.parentNode.getElementsByClassName("smileyHolder")[0];
-			if(smileyHolder.children.length > 2){
-				smileyHolder.removeChild(smileyHolder.getElementsByClassName("textfield")[smileyHolder.children.length-1]);
-				recalculateColors(smileyHolder);
+		function removeSmileyFromAssignment(){
+			var allQuestions = event.target.parentNode.getElementsByClassName("questionHolder")[0].getElementsByClassName("singleQuestionHolder");
+			for(var i = 0; i<allQuestions.length; i++){
+				var smileyHolder = allQuestions[i].getElementsByClassName("smileyHolder")[0];
+				if(smileyHolder.children.length > 2){
+					smileyHolder.removeChild(smileyHolder.getElementsByClassName("textfield")[smileyHolder.children.length-1]);
+					recalculateColors(smileyHolder);
+					event.target.parentNode.getElementsByClassName("questionHolder")[0].smileyCount = smileyHolder.children.length; //Remember the number of smileys every quesiton has
+				}
 			}
 		}
 	
@@ -46,50 +78,54 @@ block content
 			var newQuestion = function(){}; //Create a placeholder object
 			parentDiv = event.target.parentNode.getElementsByClassName("questionHolder")[0];
 			childDiv = document.createElement("div");
+			childDiv.className = "singleQuestionHolder";
 			
 			newQuestion.description = document.createElement("input");
 			newQuestion.description.placeholder = "Question Description";
 			newQuestion.description.className = "textfield";
 			
+			newQuestion.enableTolerance = document.createElement("input");
+			newQuestion.enableTolerance.type = "button";
+			newQuestion.enableTolerance.className = "button";
+			newQuestion.enableTolerance.value = "Tolerance";
+			newQuestion.enableTolerance.style.width = "72px";	
+			newQuestion.enableTolerance.onclick = function(){enableTolerance(this);};
+			
+			newQuestion.totalPoints = document.createElement("input");
+			newQuestion.totalPoints.placeholder = "Pts";
+			newQuestion.totalPoints.className = "textfield";
+			newQuestion.totalPoints.style.width = "20px";
+			newQuestion.totalPoints.maxLength = "3";
+			
 			newQuestion.smileyHolder = document.createElement("span");
 			newQuestion.smileyHolder.className = "smileyHolder";
 			newQuestion.smileyHolder.smileys = 2; //We have to count, since we want max 5, min 2 SmileyFields
 			
-			newQuestion.smileyFields = {};
-			newQuestion.smileyFields["0"] = document.createElement("input"); //Create first smiley field
-			newQuestion.smileyFields["0"].className = "textfield";
-			newQuestion.smileyFields["0"].style.width="16px";
-			newQuestion.smileyFields["0"].maxLength = "2";
-			newQuestion.smileyFields["0"].style.backgroundColor = "#63ff00";
-			newQuestion.smileyFields["1"] = document.createElement("input"); //Create second smiley field. More can be added via '+'
-			newQuestion.smileyFields["1"].className = "textfield";
-			newQuestion.smileyFields["1"].style.width="16px";
-			newQuestion.smileyFields["1"].maxLength = "2";
-			newQuestion.smileyFields["1"].style.backgroundColor = "#ffb100";
-			newQuestion.smileyHolder.appendChild(newQuestion.smileyFields["0"]); //Apend the predefined Smileys
-			newQuestion.smileyHolder.appendChild(newQuestion.smileyFields["1"]);
-			
-			newQuestion.addQuestionButton = document.createElement("input");
-			newQuestion.addQuestionButton.type = "button";
-			newQuestion.addQuestionButton.className = "button";
-			newQuestion.addQuestionButton.value = "+";
-			newQuestion.addQuestionButton.onclick = function(){addSmileyToQuestion(this);};
-			
-			newQuestion.removeQuestionButton = document.createElement("input");
-			newQuestion.removeQuestionButton.type = "button";
-			newQuestion.removeQuestionButton.className = "button";
-			newQuestion.removeQuestionButton.value = "-";
-			newQuestion.removeQuestionButton.onclick = function(){removeSmileyFromQuestion(this);};
-			
+			var smileysToAdd = new Array();
+			for(var i = 0; i<parentDiv.smileyCount; i++){
+				var newSmiley = document.createElement("input"); //Create first smiley field
+				newSmiley.className = "textfield";
+				newSmiley.style.width = "16px";
+				newSmiley.maxLength = "2";
+				newSmiley.disabled = true;
+				newQuestion.smileyHolder.appendChild(newSmiley);
+			}
+			recalculateColors(newQuestion.smileyHolder);
+						
 			placeholder =  document.createElement("label");
 			placeholder.style.minWidth = "40px";
 			placeholder.style.display = "inline-block";
 			
+			newQuestion.endAnchor = document.createElement("label");
+			newQuestion.endAnchor.className = "endAnchor"; 
+			newQuestion.endAnchor.style.minWidth = "1px";
+			
 			childDiv.appendChild(placeholder);
 			childDiv.appendChild(newQuestion.description);
+			childDiv.appendChild(newQuestion.totalPoints);
 			childDiv.appendChild(newQuestion.smileyHolder);
-			childDiv.appendChild(newQuestion.addQuestionButton);
-			childDiv.appendChild(newQuestion.removeQuestionButton);
+			childDiv.appendChild(newQuestion.enableTolerance);
+			childDiv.appendChild(newQuestion.endAnchor);
 			childDiv.appendChild(document.createElement("br"));
 			parentDiv.appendChild(childDiv);
 		}
@@ -112,14 +148,42 @@ block content
 			placeholder.style.minWidth = "20px";
 			placeholder.style.display = "inline-block";
 			
+			newAssignment.addSmileyButton = document.createElement("input");
+			newAssignment.addSmileyButton.type = "button";
+			newAssignment.addSmileyButton.className = "button";
+			newAssignment.addSmileyButton.value = "Add Step";
+			newAssignment.addSmileyButton.onclick = function(){addSmileyToAssignment(this);};
+			
+			newAssignment.removeSmileyButton = document.createElement("input");
+			newAssignment.removeSmileyButton.type = "button";
+			newAssignment.removeSmileyButton.className = "button";
+			newAssignment.removeSmileyButton.value = "Remove Step";
+			newAssignment.removeSmileyButton.onclick = function(){removeSmileyFromAssignment(this);};
+			
+			newAssignment.addNormalButton = document.createElement("input");
+			newAssignment.addNormalButton.type = "button";
+			newAssignment.addNormalButton.className = "button";
+			newAssignment.addNormalButton.value = "Normal";
+			newAssignment.addNormalButton.style.width = "72px";
+			newAssignment.addNormalButton.onclick = function(){enableNormal(this);};
+			
+			newAssignment.endAnchor = document.createElement("label");
+			newAssignment.endAnchor.className = "endAnchor"; 
+			newAssignment.endAnchor.style.minWidth = "1px";
+			
 			assignmentHolder.appendChild(placeholder);			
 			assignmentHolder.appendChild(newAssignment.description);
 			assignmentHolder.appendChild(newAssignment.addQuestionButton);
+			assignmentHolder.appendChild(newAssignment.addSmileyButton);
+			assignmentHolder.appendChild(newAssignment.removeSmileyButton);
+			assignmentHolder.appendChild(newAssignment.addNormalButton);
+			assignmentHolder.appendChild(newAssignment.endAnchor);
 			assignmentHolder.appendChild(document.createElement("br"));
 			
 			newAssignment.questionHolder = document.createElement("div");
 			newAssignment.questionHolder.id = "questionHolder";
 			newAssignment.questionHolder.className = "questionHolder";
+			newAssignment.questionHolder.smileyCount = 2;
 			assignmentHolder.appendChild(newAssignment.questionHolder);
 			
 			document.getElementById("assignmentTable").appendChild(assignmentHolder);

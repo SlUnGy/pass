@@ -4,7 +4,7 @@ block content
 		var studentArray= new Array();
 		
 		function addStudentToList() {
-			studentToCreateName = document.getElementById("student").value
+			studentToCreateName = document.getElementById("student").value;
 			if(studentToCreateName != ""){
 				var studentToCreate = document.createElement("option");
 				studentToCreate.text = studentToCreateName;
@@ -17,15 +17,28 @@ block content
 				console.log(studentArray);
 			}
 		}
+
+		function checkName(){
+			courseToCreateName = document.getElementById("course").value;
+			but = document.getElementById("submit");
+			if(courseToCreateName != ""){
+				but.disabled = false;
+				but.className = "button";
+			}
+			else {
+				but.disabled = true;
+				but.className = "button disabled";
+			}
+		}
 	
 
 	p(id="heading") Create a new course
 	form(action="/createCourseDo", method="post" id="createForm")
-		input(type="text", name="courseName", placeholder="Kursname", class="textfield") 
+		input(type="text", name="courseName", id="course", placeholder="Kursname", class="textfield", onchange="checkName()") 
 		input(type="text", name="student", id="student", placeholder="Student", class="textfield")
 		input(type="button", name="addStudent", value="Add", onclick="addStudentToList()", class="button")
 		br
 		select(type="listbox", name="students", id="students", multiple, class="listbox", style="min-width: 415px; min-height:200px; overflow:visible")
 		br
 		input(type="hidden", name="postStudents", id="postStudents", value="")
-		input(type="submit", value="Create Course", class="button")
+		input(type="submit", name="submit", id="submit", value="Create Course", class="button disabled", disabled)

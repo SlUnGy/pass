@@ -17,9 +17,9 @@ exports.post = function(req, res){
 					return console.error(err);
 				}
 				if(foundStudent == null){ //We have to create the student
-					foundStudent = new schemes.Student({name: studentName, assessments: null});
-					foundStudent.save();
-					courseStudents.push(foundStudent);
+					var student = new schemes.Student({name: studentName, assessments: null});
+					student.save();
+					courseStudents.push(student);
 				}
 				else{
 					courseStudents.push(foundStudent); //Push the found student
@@ -29,6 +29,7 @@ exports.post = function(req, res){
 		},
 		function(err){ //This is executed when the call is done
 			var newCourse = new schemes.Course({title: req.body.courseName, assessments: null, students: courseStudents}); //Create the new course
+			newCourse.save();
 			console.log("Added course " + req.body.courseName + " with " + courseStudents.length + " students");
 		}
 	);

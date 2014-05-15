@@ -14,7 +14,6 @@ var login = require('./routes/login');
 var createCourseDo = require('./routes/createCourseDo');
 var createCourse = require('./routes/createCourse');
 var createAssessment = require('./routes/createAssessment');
-var getAssessment = require('./routes/getAssessment');
 var createAssessmentDo = require('./routes/createAssessmentDo');
 var gradeAssessment = require('./routes/gradeAssessment');
 var mainPage = require('./routes/mainPage');
@@ -63,8 +62,19 @@ var newUser = new schemes.User({name:"root", password:"root"});
 newUser.save();
 
 app.get('/getAssessment', function(req, res){
-	schemes.Assessment.findOne({name: req.param
-
+	console.log(req.param("a"));
+	schemes.Assessment.findOne({name: req.param("a")}, function(err, foundAssessment){
+		if(err){
+			return console.error(err);
+		}
+		if(foundUser != null && foundUser.password === req.body.pw){
+			req.session.user = foundUser;
+			res.render('main', { title: 'PASS' });
+		}
+		else {
+			res.render('index', { title: 'PASS' });
+		}
+	}
 });
 
 app.post('/login', function(req, res){

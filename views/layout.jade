@@ -32,8 +32,8 @@ html
 				li: a(href="Downloads") Downloads
 
 		img(src="/images/menubutton.svg", id = "menubutton", class="active", width=50, height=50, onclick="setActive('menu'); setInactive('menubutton');")
-
-		div(id="background" class="original"): div(id="content" class="active"): block content
+		div(id="wrapper")
+			div(id="background" class="original"): div(id="content" class="active"): block content
 		div(id="footer")
 			ul
 				li: a(href="hilfe") Hilfe

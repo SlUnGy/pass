@@ -4,6 +4,7 @@ body
 a
 	color: inherit 
 	text-decoration: none
+	
 *
 	margin: 0px
 	padding: 0px
@@ -66,14 +67,20 @@ a
 	background-color: black
 #menubutton.inactive
 	display: none
-	
+
+#wrapper
+	margin-left:auto
+	margin-right:auto
+ 
 #background
-	margin-left: auto 
-	margin-right: auto 
+	padding: 25px
 	background-color: lightgray
 	border-radius: 5px
 	box-shadow: 2px 2px #888
 	margin-bottom: 2em
+	display: table
+	margin-left: auto
+	margin-right: auto
 
 #background.original
 	width: 28%
@@ -81,10 +88,8 @@ a
 
 #background.expand
 	transition-property: width height
-	transition-duration: 0.5s
-	width: 90%
+	transition-duration: 1.5s
 	height: 90%
-	z-index:2
 
 #content
 	padding: 2%
@@ -103,7 +108,11 @@ a
 
 #createForm
 	float: center
+<<<<<<< HEAD
+	/*width: 500px*/
+=======
 	width: 800px
+>>>>>>> cd937c65074887aaf7846c36ac085c202d9f3d51
 
 #createForm .textfield
 	padding: 5px
@@ -132,7 +141,7 @@ a
 	margin-top: 5px
 	margin-right: auto
 	margin-left: auto
-	width: 55%
+
 	color: gray
 	
 	
@@ -162,6 +171,7 @@ a
 	font-size: 35px
 	
 #indexButton
+	margin: 20 px
 	display: table-cell
 	vertical-align: middle
 	height: 200px
@@ -170,7 +180,7 @@ a
 	text-align: center
 	font: 42px bold "Lucida Grande", Helvetica
 	border-radius: 30px
-	
+	box-shadow: 3px 3px #888
 
 #indexButton.green 
 	background-color: #99ff00

@@ -8,6 +8,6 @@ var async = require("async");
 
 exports.post = function(req, res){	
 	var newAssessment = new schemes.Assessment({name: req.body.assessmentName, assessment:req.body.postAssessment}); //Create the assessment
-	console.log(newAssessment);
+	newAssessment.save();
 	res.render('main', { title: 'PASS' });
 };

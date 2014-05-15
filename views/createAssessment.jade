@@ -1,9 +1,35 @@
 extends layout
 block content
 	script.
+		
 		function submitAssessment(){
-			event.target.parentNode.childNodes[4].value = event.target.parentNode;
-			event.target.parentNode.submit()
+			var assessmentArray = new Array();
+			var allAssignmentNodes = event.target.parentNode.childNodes[3].childNodes;
+			for(var i = 0; i<allAssignmentNodes.length; i++){
+				var oneAssignment = new function(){};
+				oneAssignment.description = allAssignmentNodes[i].childNodes[1].value;
+				
+				if(allAssignmentNodes[i].childNodes[5].value != "Tolerance"){
+					oneAssignment.tolerance = allAssignmentNodes[i].childNodes[5].value;
+				}
+				else{
+					oneAssignment.tolerance = "";
+				}
+				
+				oneAssignment.questions = new Array();
+				var allQuestionNodes = allAssignmentNodes[i].childNodes[8];				
+				for(var j = 0; j<allQuestionNodes.childNodes.length; j++){
+					var oneQuestionNode = allQuestionNodes.childNodes[j];
+					var oneQuestion = new function(){}
+					oneQuestion.description = oneQuestionNode.childNodes[1].value;
+					oneQuestion.points = oneQuestionNode.childNodes[2].value;
+					oneQuestion.smileys = oneQuestionNode.childNodes[3].childNodes.length;
+					oneAssignment.questions.push(oneQuestion);
+				}
+				assessmentArray.push(oneAssignment);
+			}
+			event.target.parentNode.childNodes[4].value = JSON.stringify(assessmentArray);
+			event.target.parentNode.submit();
 		}
 	
 		function enableTolerance(){

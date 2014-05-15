@@ -62,9 +62,15 @@ var newUser = new schemes.User({name:"root", password:"root"});
 newUser.save();
 
 app.get('/getAssessment', function(req, res){
-	console.log(req.param("a"));
-	
-	
+	schemes.Assessment.findOne("AAAA", function(err, foundAssessment){
+		console.log(foundAssessment);
+		if(err){
+			return console.error(err);
+		}
+		if(foundAssessment != null){
+			res.send(foundAssessment);
+		}
+	});
 });
 
 app.post('/login', function(req, res){

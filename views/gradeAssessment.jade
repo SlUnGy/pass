@@ -4,7 +4,8 @@ block content
 		var xmlhttp = new XMLHttpRequest();
 		xmlhttp.onreadystatechange=function(){
 			if (xmlhttp.readyState==4 && xmlhttp.status==200){
-				document.getElementById("assessmentDiv").innerHTML=xmlhttp.responseText;
+				console.log(JSON.parse(xmlhttp.responseText)["assessment"]);
+				document.getElementById("assessmentDiv").innerHTML=JSON.parse(xmlhttp.responseText)["assessment"];
 			}
 		}
 		//Request the assessment from the DB

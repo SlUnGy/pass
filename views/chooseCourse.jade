@@ -1,4 +1,12 @@
 extends layout
 
 block content
-	p yadda yadda choose a course
+	p(id="heading") Select a course
+	form(action="", method="post", id="selectForm")
+		select(type="listbox", name="courseNames", id="courseNames", multiple="" style="min-width: 415px; min-height:200px; overflow:visible", class="listbox")
+			each name in courses
+				option(value= name)= name
+
+		br
+		br
+		input(type="submit", name="submit", value="Select Course", class="button")

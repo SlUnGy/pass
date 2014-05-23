@@ -119,7 +119,7 @@ block content
 			}
 		}
 		//Request the assessment from the DB
-		xmlhttp.open("GET","getAssessment?a=" + "#{assessmentName}",true);
+		xmlhttp.open("GET","getAssessment?a=" + "#{assessmentName}" ,true);
 		xmlhttp.send();
 		
 	form(action="/gradeAssessmentDo", method="post" id="createForm")

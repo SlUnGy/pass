@@ -18,11 +18,11 @@ var createAssessmentDo = require('./routes/createAssessmentDo');
 var gradeAssessment = require('./routes/gradeAssessment');
 var chooseCourse = require('./routes/chooseCourse');
 var chooseStudent = require('./routes/chooseStudent');
-var chooseAssessment = require('./routes/chooseAssessment');
 var mainPage = require('./routes/mainPage');
 //var admin = require('./routes/admin');
 var preferences = require('./routes/preferences');
 var loginStudent = require('./routes/loginStudent');
+var chooseAssessment = require('./routes/chooseAssessment');
 
 var http = require('http');
 var path = require('path');
@@ -61,7 +61,6 @@ app.get('/main', mainPage.display);
 app.get('/preferences',preferences.display);
 app.get('/chooseCourse', chooseCourse.display);
 app.get('/chooseStudent',chooseStudent.display);
-app.get('/chooseAssessment',chooseAssessment.display);
 
 //app.get('/admin', admin.display);
 var newUser = new schemes.User({name:"root", password:"root"});
@@ -69,7 +68,7 @@ var newUser = new schemes.User({name:"root", password:"root"});
 newUser.save();
 
 app.get('/getAssessment', function(req, res){
-	schemes.Assessment.findOne({name:"Banana"}, function(err, foundAssessment){
+	schemes.Assessment.findOne({name:req.query["a"]}, function(err, foundAssessment){
 		console.log(foundAssessment);
 		if(err){
 			return console.error(err);
@@ -98,10 +97,9 @@ app.post('/login', function(req, res){
 		}
 	});
 });
-
+app.post('/chooseAssessment', chooseAssessment.displayPost);
 
 app.post('/chooseCourse', chooseCourse.displayPost);
-app.post('/chooseAssessment', chooseAssessment.displayPost);
 
 app.post('/createCourseDo', function(req, res){
 	createCourseDo.post(req, res);

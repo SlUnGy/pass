@@ -3,7 +3,7 @@
  */
 
 exports.post = function(req, res){
-	res.render('gradeAssessment', { title: 'PASS', studentName: req.body.studentName, assignmentName: req.body.assignment});
+	res.render('gradeAssessment', { title: 'PASS', studentName: req.body.studentName, assessmentName: req.body.assessment});
 };
 
 exports.display = function(req, res){

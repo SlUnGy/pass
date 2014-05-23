@@ -21,6 +21,7 @@ var chooseStudent = require('./routes/chooseStudent');
 var mainPage = require('./routes/mainPage');
 //var admin = require('./routes/admin');
 var preferences = require('./routes/preferences');
+var loginStudent = require('./routes/loginStudent');
 
 var http = require('http');
 var path = require('path');
@@ -37,7 +38,7 @@ app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.methodOverride());
 app.use(express.cookieParser());
-app.use(express.session({secret: 'yourmamaissofat'}));
+app.use(express.session({secret: 'a1s2d3##+'}));
 app.use(app.router);
 app.use(require('stylus').middleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));

@@ -21,7 +21,7 @@ block content
 				}
 			}
 		
-		function fillAssessmentFromJSON(input){
+		function fillAssessmentFromJSON(input, studentName){
 			var assessment = JSON.parse(input);
 			var assignments = JSON.parse(assessment.assessment);
 
@@ -30,7 +30,7 @@ block content
 			var assessmentDiv = document.getElementById("assessmentDiv");
 			
 			var assessmentHeading = document.createElement("p");
-			assessmentHeading.innerHTML = "Assessment " + assessment.name + " of student Pimmelkopp";
+			assessmentHeading.innerHTML = "Assessment " + assessment.name + " of student" + studentName;
 			assessmentHeading.style.fontSize = "24px";
 			assessmentDiv.appendChild(assessmentHeading);
 			assessmentDiv.appendChild(document.createElement("br"));
@@ -115,11 +115,11 @@ block content
 		var xmlhttp = new XMLHttpRequest();
 		xmlhttp.onreadystatechange=function(){
 			if(xmlhttp.readyState==4 && xmlhttp.status==200){
-				fillAssessmentFromJSON(xmlhttp.responseText)
+				fillAssessmentFromJSON(xmlhttp.responseText, studentName)
 			}
 		}
 		//Request the assessment from the DB
-		xmlhttp.open("GET","getAssessment?a=" + "Banana",true);
+		xmlhttp.open("GET","getAssessment?a=" + "assessmentName",true);
 		xmlhttp.send();
 		
 	form(action="/gradeAssessmentDo", method="post" id="createForm")

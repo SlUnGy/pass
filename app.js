@@ -78,6 +78,10 @@ app.get('/getAssessment', function(req, res){
 	});
 });
 
+app.post('/gradeAssessment', function(req, res){
+	gradeAssessment.post(req, res);
+});
+
 app.post('/login', function(req, res){
 	schemes.User.findOne({name: req.body.name}, function(err, foundUser){
 		if(err){

@@ -16,6 +16,7 @@ var createCourse = require('./routes/createCourse');
 var createAssessment = require('./routes/createAssessment');
 var createAssessmentDo = require('./routes/createAssessmentDo');
 var gradeAssessment = require('./routes/gradeAssessment');
+var gradeAssessmentDo = require('./routes/gradeAssessmentDo');
 var chooseCourse = require('./routes/chooseCourse');
 var chooseStudent = require('./routes/chooseStudent');
 var mainPage = require('./routes/mainPage');
@@ -107,6 +108,10 @@ app.post('/createCourseDo', function(req, res){
 
 app.post('/createAssessmentDo', function(req, res){
 	createAssessmentDo.post(req, res);
+});
+
+app.post('/gradeAssessmentDo', function(req, res){
+	gradeAssessmentDo.post(req, res);
 });
 
 http.createServer(app).listen(app.get('port'), function(){

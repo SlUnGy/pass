@@ -13,7 +13,8 @@ module.exports.User = User;
 
 var studentSchema = new mongoose.Schema({
 	name: String,
-	assessments: Array
+	assessments: {}, //Hashmap Assessmentname to Score
+	grades: {}	//Hashmap, CourseName to Grade
 });
 
 var Student = mongoose.model('Student', studentSchema);

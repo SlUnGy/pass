@@ -1,6 +1,24 @@
 extends layout
 block content
 	script.
+	
+		function assessmentEssentials(){
+			this.name = "";
+			this.assignments = new Array(); //The assignments go here
+		}
+
+		function assignmentEssentials(){
+			this.description = "";
+			this.tolerance = 0.0;
+			this.questions = new Array(); //The Questions go here
+		}
+
+		function questionEssentials(){
+			this.smileys = new Array(); //The values of the smileys go here
+		}
+
+		postData = new assessmentEssentials(); //Already create the field that we will post later
+
 		function recalculateColors(parentNode){
 				var textfields = parentNode.getElementsByClassName("textfield");
 				var color_jumps = 351/(textfields.length);
@@ -20,13 +38,11 @@ block content
 					}
 				}
 			}
-		
+			
 		function fillAssessmentFromJSON(input){
 			var assessment = JSON.parse(input);
 			var assignments = JSON.parse(assessment.assessment);
-
-			console.log(assignments);
-			
+						
 			var assessmentDiv = document.getElementById("assessmentDiv");
 			
 			var assessmentHeading = document.createElement("p");
@@ -34,13 +50,15 @@ block content
 			assessmentHeading.style.fontSize = "24px";
 			assessmentDiv.appendChild(assessmentHeading);
 			assessmentDiv.appendChild(document.createElement("br"));
+
+			postData.name = assessment.name; //Already fill the posted assessment name
 												
 			for(var i = 0; i<assignments.length; i++){ //Iterate over the assignments
 				var currentAssignment = assignments[i];
 				
 				var newAssignment = function(){}; //Create a placeholder object
 				var assignmentHolder = document.createElement("div");
-
+	
 				placeholder = document.createElement("label");
 				placeholder.style.minWidth = "20px";
 				placeholder.style.display = "inline-block";
@@ -59,6 +77,11 @@ block content
 				newAssignment.tolerance = document.createElement("p");
 				newAssignment.tolerance.innerHTML = "Tolerance: " + currentAssignment.tolerance;
 				assignmentHolder.appendChild(newAssignment.tolerance);
+
+				var postAssignment = new assignmentEssentials();
+				postAssignment.description = currentAssignment.description; //Prefill the name
+				postAssignment.tolerance = parseFloat(currentAssignment.tolerance);
+				postData.assignments.push(postAssignment); //Push the prefilled assignment
 								
 				assignmentHolder.appendChild(document.createElement("br"));
 				
@@ -103,14 +126,40 @@ block content
 					questionDiv.appendChild(newQuestion.smileyHolder);
 										
 					newAssignment.questionHolder.appendChild(questionDiv);
+
 				}
 				
 				assignmentHolder.appendChild(newAssignment.questionHolder);
 
-				console.log(assignmentHolder);
-
 				assessmentDiv.appendChild(assignmentHolder);
 			}
+		}
+		function postValues(){
+			//Complete the prefilled assessment
+			//We have to collect the questions that were completed by the user
+			var assessmentDiv = document.getElementById("assessmentDiv");
+			for(var i = 2; i<assessmentDiv.childNodes.length; i++){
+				var assignmentDiv = assessmentDiv.childNodes[i];
+				var assignmentDivChildren = assignmentDiv.childNodes;
+				for(var j = 4; j<assignmentDivChildren.length; j++){
+					var questionHolder = assignmentDivChildren[j];
+					for(var k = 0; k<questionHolder.childNodes.length; k++){ //Iterate over the questions
+						var question = questionHolder.childNodes[k]
+						var smileyHolder = question.childNodes[2];
+						var smileyValueArray = new Array();
+						for(var l=0; l<smileyHolder.childNodes.length; l++){
+							smileyValueArray.push(parseInt(smileyHolder.childNodes[l].value));
+						}
+						var postQuestion  = new questionEssentials();
+						postQuestion.smileys = smileyValueArray;
+						postData.assignments[i-2].questions.push(postQuestion); //Add the smileys to the assignment
+					}
+				}
+			}
+			document.getElementById("postGrading").value = JSON.stringify(postData);
+			document.getElementById("studentName").value = "#{studentName}";
+			document.getElementById("assessmentName").value = "#{assessmentName}";
+			event.target.parentNode.submit();
 		}
 
 		var xmlhttp = new XMLHttpRequest();
@@ -125,5 +174,7 @@ block content
 		
 	form(action="/gradeAssessmentDo", method="post" id="createForm")
 		#assessmentDiv
-		
-	
+		input(type="hidden", name="postGrading", id="postGrading", value="")
+		input(type="hidden", name="studentName", id="studentName", value="")
+		input(type="hidden", name="assessmentName", id="assessmentName", value="")
+		input(type="button", value="Finish Grading", class="button", onclick="postValues()")

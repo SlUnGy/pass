@@ -28,7 +28,7 @@ exports.profile2score = function(profileArray, tolerance){
 exports.score2rate = function(score, standart, impact){
 	if(standart==0 || standart==1 || impact==0 ){
 		return 1;
-	} elseif (score<(standart/(1-impact*(1-standart)))) {
+	} else if (score<(standart/(1-impact*(1-standart)))) {
 		return log(1 - score * (1 - impact * (1 - standart)) / standart) / log(impact * (1 - standart));
 	}  else {
 		return -1;

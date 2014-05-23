@@ -3,7 +3,7 @@ extends layout
 block content
 	p(id="heading") Select a student from 
 		= course
-	form(action="gradeAssessment", method="post", id="selectForm")
+	form(action="chooseAssessment", method="post", id="selectForm")
 		select(type="listbox", name="studentNames", id="studentNames", multiple="" style="min-width: 415px; min-height:200px; overflow:visible", class="listbox")
 			each name in students
 				option(value= name)= name

@@ -1,0 +1,14 @@
+extends layout
+
+block content
+	p(id="heading") Select an assessment for 
+		= studentName
+	form(action="gradeAssessment", method="post", id="selectForm")
+		select(type="listbox", name="assessment", id="assessment", multiple="" style="min-width: 415px; min-height:200px; overflow:visible", class="listbox")
+			each name in assessments
+				option(value= name)= name
+
+		br
+		br
+		input(type="hidden", name="studentName", id="studentName" value=studentName)
+		input(type="submit", name="submit", value="Select Assessment", class="button")

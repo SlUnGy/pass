@@ -30,7 +30,7 @@ block content
 			var assessmentDiv = document.getElementById("assessmentDiv");
 			
 			var assessmentHeading = document.createElement("p");
-			assessmentHeading.innerHTML = "Assessment " + assessment.name + " of student" + "#{studentName}";
+			assessmentHeading.innerHTML = "Assessment " + assessment.name + " of student " + "#{studentName}";
 			assessmentHeading.style.fontSize = "24px";
 			assessmentDiv.appendChild(assessmentHeading);
 			assessmentDiv.appendChild(document.createElement("br"));
@@ -53,12 +53,13 @@ block content
 				assignmentHolder.appendChild(placeholder);			
 				assignmentHolder.appendChild(newAssignment.description);
 
-				if(currentAssignment.tolerance != ""){
-					newAssignment.tolerance = document.createElement("label");
-					newAssignemnt.tolerance.value = "Tolerance: " + currentAssignment.tolerance;
-					assignmentHolder.appendChild(newAssignment.tolerance);
+				if(currentAssignment.tolerance == ""){
+					currentAssignment.tolerance = "0,00";
 				}
-				
+				newAssignment.tolerance = document.createElement("p");
+				newAssignment.tolerance.innerHTML = "Tolerance: " + currentAssignment.tolerance;
+				assignmentHolder.appendChild(newAssignment.tolerance);
+								
 				assignmentHolder.appendChild(document.createElement("br"));
 				
 				newAssignment.questionHolder = document.createElement("div");

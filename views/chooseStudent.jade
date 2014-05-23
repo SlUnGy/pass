@@ -1,7 +1,8 @@
 extends layout
 
 block content
-	p(id="heading") Select a course
+	p(id="heading") Select a student from 
+		= name
 	form(action="gradeAssessment", method="post", id="selectForm")
 		select(type="listbox", name="studentNames", id="studentNames", multiple="" style="min-width: 415px; min-height:200px; overflow:visible", class="listbox")
 			each name in students
@@ -9,4 +10,5 @@ block content
 
 		br
 		br
+		input(type="hidden", name="courseName", id="courseName", value= course )
 		input(type="submit", name="submit", value="Select Student", class="button")

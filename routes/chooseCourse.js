@@ -27,7 +27,7 @@ exports.displayPost = function(req, res){
 			for( var i=0; i<data.students.length; ++i){
 				names.push(data.students[i]['name']);
 			}
-			res.render('chooseStudent', { title: 'PASS', students: names });
+			res.render('chooseStudent', { title: 'PASS', students: names, course: req.body.courseNames });
 		}
 		else {
 			return console.error('No data found for selected course');

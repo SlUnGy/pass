@@ -1,3 +1,3 @@
 exports.display = function(req, res){
-	res.render('chooseStudent', { title: 'PASS', students: null });
+	res.render('chooseStudent', { title: 'PASS', students: null, course: null });
 }

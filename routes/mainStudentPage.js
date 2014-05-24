@@ -7,7 +7,6 @@ exports.display = function(req, res){
 			scores.push(req.session.student.assessments[a]);
 		}
 		console.log(scores);
-		console.log(scoreFunctions);
 		var lenience = 0.85;
 		var resultScore = scoreFunctions.scores2score(scores, lenience);
 		console.log(resultScore);

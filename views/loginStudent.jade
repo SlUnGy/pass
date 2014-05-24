@@ -1,3 +1,12 @@
 extends layout
 
 block content
+  script.
+    window.onload = function() { setInactive("menubutton"); }
+
+  form(action="/loginStudent", method="post", id="login")
+    input(type="text", name="name", placeholder="Username", class="textfield") 
+    br
+    input(type="submit", value="Login", class="button")
+    div(class="centertext"): a(href="hilfe") need help?
+    div(class="centertext"): a(href="index") you're no student?

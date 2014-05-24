@@ -20,6 +20,7 @@ var gradeAssessmentDo = require('./routes/gradeAssessmentDo');
 var chooseCourse = require('./routes/chooseCourse');
 var chooseStudent = require('./routes/chooseStudent');
 var mainPage = require('./routes/mainPage');
+var mainStudentPage = require('./routes/mainStudentPage');
 //var admin = require('./routes/admin');
 var preferences = require('./routes/preferences');
 var loginStudent = require('./routes/loginStudent');
@@ -51,6 +52,7 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.index);
+app.get('/index',routes.index);
 app.get('/hilfe', hilfe.display);
 app.get('/nbd', nbd.display);
 app.get('/pass', pass.display);
@@ -59,9 +61,11 @@ app.get('/createAssessment', createAssessment.display);
 app.get('/gradeAssessment', gradeAssessment.display);
 app.get('/login',login.display);
 app.get('/main', mainPage.display);
+app.get('/mainStudent', mainStudentPage.display);
 app.get('/preferences',preferences.display);
 app.get('/chooseCourse', chooseCourse.display);
 app.get('/chooseStudent',chooseStudent.display);
+app.get('/loginStudent',loginStudent.display);
 
 //app.get('/admin', admin.display);
 var newUser = new schemes.User({name:"root", password:"root"});
@@ -98,6 +102,22 @@ app.post('/login', function(req, res){
 		}
 	});
 });
+
+app.post('/loginStudent', function(req, res){
+	schemes.Student.findOne({name: req.body.name}, function(err, foundStudent){
+		if(err){
+			return console.error(err);
+		}
+		if(foundStudent != null){
+			req.session.student = foundStudent;
+			res.render('mainStudent', { title: 'PASS', studentName: foundStudent.name });
+		}
+		else {
+			res.render('loginStudent', { title: 'ERROR on login' });
+		}
+	});
+});
+
 app.post('/chooseAssessment', chooseAssessment.displayPost);
 
 app.post('/chooseCourse', chooseCourse.displayPost);

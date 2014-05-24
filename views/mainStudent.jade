@@ -2,4 +2,12 @@ extends layout
 block content  
 	h2= studentName
 	p These are your grades:
+	br
+	- for(var key in assessments){
+		strong= key
+		p(style="padding-left:15px")= assessments[key]
+	-}
+	br
+	p Your final score is 
+		= totalGrade
 	

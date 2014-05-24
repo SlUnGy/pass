@@ -69,7 +69,7 @@ exports.gamma = function (x) {
 		return -1;
 	}
 
-	return exp(log_gamma(x));
+	return Math.exp(log_gamma(x));
 }
 
 exports.log_gamma = function(x) {
@@ -81,7 +81,7 @@ exports.log_gamma = function(x) {
 
 	if (x < 12.0)
 	{
-		return log(abs(gamma(x)));
+		return Math.log(Math.abs(gamma(x)));
 	}
 	var c = [ 1.0/12.0, -1.0/360.0, 1.0/1260.0, -1.0/1680.0, 1.0/1188.0, -691.0/360360.0, 1.0/156.0, -3617.0/122400.0];
 	var z = 1.0/(x*x);
@@ -94,6 +94,6 @@ exports.log_gamma = function(x) {
 	var series = sum/x;
 
 	var halfLogTwoPi = 0.91893853320467274178032973640562;
-	var logGamma = (x - 0.5)*log(x) - x + halfLogTwoPi + series;    
+	var logGamma = (x - 0.5)*Math.log(x) - x + halfLogTwoPi + series;    
 	return logGamma;
 }

@@ -110,7 +110,7 @@ app.post('/loginStudent', function(req, res){
 		}
 		if(foundStudent != null){
 			req.session.student = foundStudent;
-			res.render('mainStudent', { title: 'PASS', studentName: foundStudent.name });
+			mainStudentPage.display(req, res);
 		}
 		else {
 			res.render('loginStudent', { title: 'ERROR on login' });

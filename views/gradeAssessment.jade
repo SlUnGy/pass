@@ -159,7 +159,7 @@ block content
 			document.getElementById("postGrading").value = JSON.stringify(postData);
 			document.getElementById("studentName").value = "#{studentName}";
 			document.getElementById("assessmentName").value = "#{assessmentName}";
-			event.target.parentNode.submit();
+			//event.target.parentNode.submit();
 		}
 
 		var xmlhttp = new XMLHttpRequest();
@@ -177,4 +177,4 @@ block content
 		input(type="hidden", name="postGrading", id="postGrading", value="")
 		input(type="hidden", name="studentName", id="studentName", value="")
 		input(type="hidden", name="assessmentName", id="assessmentName", value="")
-		input(type="button", value="Finish Grading", class="button", onclick="postValues()")
+		input(type="submit", value="Finish Grading", class="button", onclick="postValues()")

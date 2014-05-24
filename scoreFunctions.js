@@ -22,7 +22,7 @@ exports.profile2score = function(profileArray, tolerance){
 	rLower=1-rLower/(n-1);
 	rUpper=rUpper/(n-1);
 
-	return (1 - tolerance) * min(array(rLower,rUpper)) + tolerance * max(array(rLower,rUpper));
+	return (1 - tolerance) * min(rLower,rUpper) + tolerance * max(rLower,rUpper);
 }
 
 exports.score2rate = function(score, standart, impact){

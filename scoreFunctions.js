@@ -2,15 +2,15 @@ var util = require('./gamma.js')
 
 exports.profile2score = function(profileArray, tolerance){
 	var n=profileArray.length;
-	console.log(n);
-	var pLower=array(0);
-	var pUpper=array(0);
+	//console.log(n);
+	var pLower=new Array();
+	var pUpper=new Array();
 	for(i=1;i<=n;i++){
 		pLower[i]=pLower[i-1]+profileArray[i-1];
 		pUpper[i]=pUpper[i-1]+profileArray[n-i];
 	}
-	console.log(pLower);
-	console.log(pUpper);
+	//console.log(pLower);
+	//console.log(pUpper);
 
 	var rLower=0;
 	var rUpper=0;
@@ -24,10 +24,10 @@ exports.profile2score = function(profileArray, tolerance){
 	}
 	rLower=1-rLower/(n-1);
 	rUpper=rUpper/(n-1);
-	console.log(rLower);
-	console.log(rUpper);
+	//console.log(rLower);
+	//console.log(rUpper);
 
-	return (1 - tolerance) * min(rLower,rUpper) + tolerance * max(rLower,rUpper);
+	return (1 - tolerance) * Math.min(rLower,rUpper) + tolerance * Math.max(rLower,rUpper);
 }
 
 exports.score2rate = function(score, standart, impact){

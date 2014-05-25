@@ -158,6 +158,7 @@ block content
 			}
 			document.getElementById("postGrading").value = JSON.stringify(postData);
 			document.getElementById("studentName").value = "#{studentName}";
+			document.getElementById("courseName").value = "#{courseName}";
 			document.getElementById("assessmentName").value = "#{assessmentName}";
 			//event.target.parentNode.submit();
 		}
@@ -177,4 +178,5 @@ block content
 		input(type="hidden", name="postGrading", id="postGrading", value="")
 		input(type="hidden", name="studentName", id="studentName", value="")
 		input(type="hidden", name="assessmentName", id="assessmentName", value="")
+		input(type="hidden", name="courseName", id="courseName", value="")
 		input(type="submit", value="Finish Grading", class="button", onclick="postValues()")

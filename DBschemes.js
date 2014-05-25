@@ -11,10 +11,18 @@ var User = mongoose.model('User', userSchema);
 
 module.exports.User = User;
 
+var takenCourseSchema = new mongoose.Schema({
+	name: String,
+	assessments: {} //Hashmap Assessmentname to Score
+});
+
+var TakenCourse = mongoose.model('TakenCourse', takenCourseSchema);
+
+module.exports.TakenCourse = TakenCourse;
+
 var studentSchema = new mongoose.Schema({
 	name: String,
-	assessments: {}, //Hashmap Assessmentname to Score
-	grades: {}	//Hashmap, CourseName to Grade
+	courses: new Array()
 });
 
 var Student = mongoose.model('Student', studentSchema);

@@ -19,7 +19,6 @@ exports.post = function(req, res){
 		for (var qs in currentAssignment["questions"]){
 			var currentQuestion = currentAssignment["questions"][qs];
 			var smileyArray	= currentQuestion["smileys"];
-			console.log(smileyArray);
 			//Count total amount
 			var total = 0;
 
@@ -31,9 +30,7 @@ exports.post = function(req, res){
 			for (var smiley in smileyArray){
 				smileyArray[smiley] = smileyArray[smiley] / total;
 			}
-
 			scores.push(scoreFunctions.profile2score(smileyArray, tolerance)); //Push the score for every question
-			console.log(scores);
 		}
 	}
 
@@ -41,24 +38,22 @@ exports.post = function(req, res){
 	var lenience = 0.85;
 	var resultScore = scoreFunctions.scores2score(lenience, scores);
 
-	console.log(resultScore);
-	//save resultscore to db
-	schemes.TakenCourse.findOne({name: req.body.courseName}, function(err, foundCourse){
-		if(err){
-			return console.error(err);
-		}
-		if(foundcourse == null){
-			var foundCourse = new schemes.TakenCourse({name:req.body.courseName}); //Create course if necessary
-		}
-		foundCourse.assessments[req.body.assessmentName] = resultScore;
+	resultScore = 0.719; //Debug Code
 
-		schemes.Student.findOne({name: req.body.studentName}, function(err, foundStudent){
-			if(foundCourse in foundStudent.courses){
+	schemes.Student.findOne({name: req.body.studentName}, function(err, foundStudent){
+		console.log(foundStudent);
+		var courseFound = 0;
+		for(var i = 0; i<foundStudent.courses.length; i++){
+			if(foundStudent.courses[i].name == req.body.courseName){ //The course was already created
+				foundStudent.courses[i].assessments[req.body.assessmentName] == resultScore; //Add the taken assessment to the course
+				courseFound = 1; //Mark that we already edited the course
 			}
-			else{
-				foundStudent.courses.push(foundCourse); //Add the new course if necessary
-			}
-		});	
+		}
+		if(courseFound == 0){ //We have to create the course
+			var newCourse = new schemes.TakenCourse({name:req.body.courseName, assessments:{}});
+			newCourse.assessments[req.body.assessmentName] = resultScore;
+			newCourse.save();
+			foundStudent.courses.push(newCourse);
+		}
 	});
-
 };

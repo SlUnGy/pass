@@ -36,9 +36,9 @@ exports.post = function(req, res){
 
 	//lenience default
 	var lenience = 0.85;
-	var resultScore = scoreFunctions.scores2score(lenience, scores);
+	var resultScore = scoreFunctions.scores2score(scores, lenience);
 
-	resultScore = 0.719; //Debug Code
+	//resultScore = 0.719; //Debug Code Score2Score seems NOT TO WORK!
 
 	schemes.Student.findOne({name: req.body.studentName}, function(err, foundStudent){
 		console.log("Pre manipulation:");

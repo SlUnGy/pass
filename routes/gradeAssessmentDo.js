@@ -41,7 +41,8 @@ exports.post = function(req, res){
 	resultScore = 0.719; //Debug Code
 
 	schemes.Student.findOne({name: req.body.studentName}, function(err, foundStudent){
-		console.log(foundStudent);
+		console.log("Pre manipulation:");
+		console.log(foundStudent.courses);
 		var courseFound = 0;
 		
 		if(foundStudent.courses == null){ //The database sometimes does not save the course. This prevents it.
@@ -50,7 +51,7 @@ exports.post = function(req, res){
 		
 		for(var key in foundStudent.courses){
 			if(foundStudent.courses[key].name == req.body.courseName){ //The course was already created
-				foundStudent.courses[key].assessments[req.body.assessmentName] == resultScore; //Add the taken assessment to the course
+				foundStudent.courses[key].assessments[req.body.assessmentName] = resultScore; //Add the taken assessment to the course
 				courseFound = 1; //Mark that we already edited the course
 			}
 		}
@@ -58,8 +59,11 @@ exports.post = function(req, res){
 			var newCourse = new schemes.TakenCourse({name:req.body.courseName, assessments:{}});
 			newCourse.assessments[req.body.assessmentName] = resultScore;
 			newCourse.save();
+			console.log("Student will now get additional course" + req.body.courseName);
 			foundStudent.courses[req.body.courseName] = newCourse;
 		}
+		foundStudent.save();
+		console.log("Post manipulation:");
 		console.log(foundStudent.courses);
 	});
 };

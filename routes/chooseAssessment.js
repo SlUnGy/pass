@@ -18,7 +18,7 @@ exports.displayPost = function(req, res){
 			for( var i=0; i<data.length; i++){
 				names.push(data[i]['name']);
 			}
-			res.render('chooseAssessment', { title: 'PASS', studentName: req.body.studentNames, assessments: names });
+			res.render('chooseAssessment', { title: 'PASS', studentName: req.body.studentNames, courseName: req.body.courseName, assessments: names });
 		}
 	});
 }

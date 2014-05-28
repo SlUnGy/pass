@@ -6,14 +6,14 @@ exports.profile2score = function(profileArray, tolerance){
 	var pLower = new Array();
 	var pUpper = new Array();
 
-	for(i=1;i<=n;i++){
+	for(var i=1;i<=n;i++){
 		pLower[i]=pLower[i-1]+profileArray[i-1];
 		pUpper[i]=pUpper[i-1]+profileArray[n-i];
 	}
 
 	var rLower = 0;
 	var rUpper = 0;
-	for(i=1;i<=n-1;i++){
+	for(var i=1;i<=n-1;i++){
 		if(pLower[i]>0){
 			rLower=rLower+Math.exp( util.log_gamma(i+pLower[i])-util.log_gamma(i+1)-util.log_gamma(pLower[i]));
 		}
@@ -39,7 +39,7 @@ exports.score2rate = function(score, standart, impact){
 
 exports.rate2score = function(baseline, rateImpactArray){
 	var n=rateImpactArray.length;
-	for(i=0;i<=n-1;i++){
+	for(var i=0;i<=n-1;i++){
 		if(rateImpactArray[i][0]==-1){
 			baseline=baseline/(1-rateImpactArray[i][1]*(1-baseline));
 		}else {
@@ -53,15 +53,20 @@ exports.scores2score = function(scoreWeightArray, lenience){
 	var n=scoreWeightArray.length;
 	var min=1;
 	var max=1;
-	for(i=0;i<=n-1;i++){
-		min=min*Math.pow((1-scoreWeightArray[i][0]), scoreWeightArray[i][1]);
-		max=max*Math.pow(scoreWeightArray[i][0], scoreWeightArray[i][1]);
+	for(var i=0;i<=n-1;i++){
+		//score weight array is suppoed to be a 2d array,
+		//containing pairs of <score, weighting>
+		min=min*Math.pow((1-scoreWeightArray[i]), 1/n);
+		max=max*Math.pow(scoreWeightArray[i], 1/n);
+		
+		//min=min*Math.pow((1-scoreWeightArray[i][0]), scoreWeightArray[i][1]);
+		//max=max*Math.pow(scoreWeightArray[i][0], scoreWeightArray[i][1]);
 	}
 	return (1 - lenience) * min + lenience * max;            
 }
 
 exports.score2grade = function(score, curvature, polarity, gMin, gMax){
-	curvature= Math.pow((1-Math.pow(score, curvature)), (1/curvature));
-	g = polarity*curvature+(1-polarity)*(1-curvature);
+	curvature = Math.pow((1-Math.pow(score, curvature)), (1/curvature));
+	var g = polarity*curvature+(1-polarity)*(1-curvature);
 	return g * gMin + (1-g)*gMax; 
 }

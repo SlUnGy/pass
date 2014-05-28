@@ -2,8 +2,6 @@ var scoreFunctions = require("../scoreFunctions");
 
 exports.display = function(req, res){
 	if(req.session.student != null){
-		var scores = new Array();
-
 		//Parse the students courses and grades
 		var studentCourses = new Array(); //This are the courses later passed
 		var lenience = 0.85;
@@ -23,8 +21,7 @@ exports.display = function(req, res){
 				courseAssessmentScores.push(foundStudent.courses[ikea].assessments[key]); //We need this for the grading later on	
 				courseAssessments.push({assessmentName:key, assessmentScore:foundStudent.courses[ikea].assessments[key]}); //Add the assessment
 			}
-			
-			var courseResultScore = scoreFunctions.scores2score(scores, lenience); 
+			var courseResultScore = scoreFunctions.scores2score(courseAssessmentScores, lenience); 
 			var courseGrade = scoreFunctions.score2grade(courseResultScore, curvature, polarity, gMin, gMax); //Calculate the grade for the course
 			
 			studentCourses.push({courseName: ikea, courseAssessments: courseAssessments, courseGrade: courseGrade}); //Add the course

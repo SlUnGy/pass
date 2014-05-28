@@ -17,7 +17,7 @@ exports.post = function(req, res){
 					return console.error(err);
 				}
 				if(foundStudent == null){ //We have to create the student
-					var student = new schemes.Student({name: studentName, assessments: null});
+					var student = new schemes.Student({name: studentName, courses: {} });
 					student.save();
 					courseStudents.push(student);
 				}

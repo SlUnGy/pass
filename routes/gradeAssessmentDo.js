@@ -43,9 +43,14 @@ exports.post = function(req, res){
 	schemes.Student.findOne({name: req.body.studentName}, function(err, foundStudent){
 		console.log(foundStudent);
 		var courseFound = 0;
-		for(var i = 0; i<foundStudent.courses.length; i++){
-			if(foundStudent.courses[i].name == req.body.courseName){ //The course was already created
-				foundStudent.courses[i].assessments[req.body.assessmentName] == resultScore; //Add the taken assessment to the course
+		
+		if(foundStudent.courses == null){ //The database sometimes does not save the course. This prevents it.
+			foundStudent.courses = {};
+		}
+		
+		for(var key in foundStudent.courses){
+			if(foundStudent.courses[key].name == req.body.courseName){ //The course was already created
+				foundStudent.courses[key].assessments[req.body.assessmentName] == resultScore; //Add the taken assessment to the course
 				courseFound = 1; //Mark that we already edited the course
 			}
 		}
@@ -53,7 +58,8 @@ exports.post = function(req, res){
 			var newCourse = new schemes.TakenCourse({name:req.body.courseName, assessments:{}});
 			newCourse.assessments[req.body.assessmentName] = resultScore;
 			newCourse.save();
-			foundStudent.courses.push(newCourse);
+			foundStudent.courses[req.body.courseName] = newCourse;
 		}
+		console.log(foundStudent.courses);
 	});
 };

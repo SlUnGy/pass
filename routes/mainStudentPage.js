@@ -3,9 +3,17 @@ var scoreFunctions = require("../scoreFunctions");
 exports.display = function(req, res){
 	if(req.session.student != null){
 		var scores = new Array();
-		for(var a in req.session.student.assessments){
-			scores.push(req.session.student.assessments[a]);
+
+		//Parse the students courses and grades
+		var studentCourses = new Array();
+		for(var ikea in req.session.students.courses){
+			var courseAssessments = new Array();
+			for(var key in req.session.student.courses[ikea].assessments){
+				courseAssessments.push({assessmentName:key, assessmentScore:req.session.student.assessments[key]}); //Add the assessment
+			}
+			studentCourses.push({courseName: ikea, courseAssessments: courseAssessments}); //Add the course
 		}
+		
 		console.log(scores);
 		var lenience = 0.85;
 		var resultScore = scoreFunctions.scores2score(scores, lenience);

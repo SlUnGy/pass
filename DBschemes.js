@@ -22,7 +22,7 @@ module.exports.TakenCourse = TakenCourse;
 
 var studentSchema = new mongoose.Schema({
 	name: String,
-	courses: new Array()
+	courses: {}
 });
 
 var Student = mongoose.model('Student', studentSchema);

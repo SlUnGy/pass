@@ -12,7 +12,7 @@ exports.display = function(req, res){
 		var gMin=1;
 		var gMax=5;
 
-		console.log(req.session.student);
+		//console.log(req.session.student);
 		var foundStudent = req.session.student;
 
 		for(var ikea in foundStudent.courses){

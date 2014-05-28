@@ -34,7 +34,7 @@ block content
 
 	p(id="heading") Create a new course
 	form(action="/createCourseDo", method="post" id="createForm")
-		input(type="text", name="courseName", id="course", placeholder="Kursname", class="textfield", onchange="checkName()") 
+		input(type="text", name="courseName", id="course", placeholder="Coursename", class="textfield", onchange="checkName()") 
 		input(type="text", name="student", id="student", placeholder="Student", class="textfield")
 		input(type="button", name="addStudent", value="Add", onclick="addStudentToList()", class="button")
 		br

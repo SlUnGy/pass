@@ -5,26 +5,33 @@ exports.display = function(req, res){
 		var scores = new Array();
 
 		//Parse the students courses and grades
-		var studentCourses = new Array();
-		for(var ikea in req.session.students.courses){
-			var courseAssessments = new Array();
-			for(var key in req.session.student.courses[ikea].assessments){
-				courseAssessments.push({assessmentName:key, assessmentScore:req.session.student.assessments[key]}); //Add the assessment
-			}
-			studentCourses.push({courseName: ikea, courseAssessments: courseAssessments}); //Add the course
-		}
-		
-		console.log(scores);
+		var studentCourses = new Array(); //This are the courses later passed
 		var lenience = 0.85;
-		var resultScore = scoreFunctions.scores2score(scores, lenience);
-		console.log(resultScore);
 		var curvature=1.678;
 		var polarity=1;
 		var gMin=1;
 		var gMax=5;
-		var grade = scoreFunctions.score2grade(resultScore, curvature, polarity, gMin, gMax);
-		console.log(grade);
-		res.render('mainStudent', { title: 'PASS', studentName: req.session.student.name, assessments: req.session.student.assessments, totalGrade: grade});
+
+		console.log(req.session.student);
+		var foundStudent = req.session.student;
+
+		for(var ikea in foundStudent.courses){
+			var courseAssessments = new Array();
+			var courseAssessmentScores = new Array(); //Needed for course grading in the end
+
+			for(var key in foundStudent.courses[ikea].assessments){
+				courseAssessmentScores.push(foundStudent.courses[ikea].assessments[key]); //We need this for the grading later on	
+				courseAssessments.push({assessmentName:key, assessmentScore:foundStudent.courses[ikea].assessments[key]}); //Add the assessment
+			}
+			
+			var courseResultScore = scoreFunctions.scores2score(scores, lenience); 
+			var courseGrade = scoreFunctions.score2grade(courseResultScore, curvature, polarity, gMin, gMax); //Calculate the grade for the course
+			
+			studentCourses.push({courseName: ikea, courseAssessments: courseAssessments, courseGrade: courseGrade}); //Add the course
+		}
+
+		res.render('mainStudent', { title: 'PASS', studentName: req.session.student, courses: studentCourses}); //Push the courses (including the assessments)
+		
 	}
 	else {
 		res.render('loginStudent', {title: 'PASS'});

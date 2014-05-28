@@ -1,13 +1,19 @@
-extends layout
+extends layout	
+
 block content  
-	h2= studentName
+	h2= "Welcome " + studentName["name"]
 	p These are your grades:
 	br
-	- for(var key in assessments){
-		strong= key
-		p(style="padding-left:15px")= assessments[key]
-	-}
-	br
-	p Your final score is 
-		= totalGrade
+	- for(var key in courses){
+		strong= courses[key].courseName
+		br
+		p(style="padding-left:25px") Taken assessments:
+		- for(var ali in courses[key].courseAssessments){
+			strong(style="padding-left:25px")= courses[key].courseAssessments[ali]["assessmentName"]
+			strong(style="padding-left:35px")= courses[key].courseAssessments[ali]["assessmentScore"]
+		- }
+		br
+		strong(style="padding-left:10px") In this course score is:
+		strong(style="padding-left:10px")= courses[key].courseGrade
+	- }
 	

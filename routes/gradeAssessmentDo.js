@@ -66,4 +66,5 @@ exports.post = function(req, res){
 		console.log("Post manipulation:");
 		console.log(foundStudent.courses);
 	});
+	res.render('main', { title: 'PASS' });
 };

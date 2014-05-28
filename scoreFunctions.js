@@ -52,7 +52,7 @@ exports.rate2score = function(baseline, rateImpactArray){
 	return baseline;
 }
 
-exports.scores2score = function(lenience, scoreWeightArray){
+exports.scores2score = function(scoreWeightArray, lenience){
 	var n=scoreWeightArray.length;
 	var min=1;
 	var max=1;
